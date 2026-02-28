@@ -54,7 +54,7 @@ export default function Integrate() {
   <skill>
     <name>python-basics-101</name>
     <description>Learn fundamental Python concepts...</description>
-    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/python-basics-101/SKILL.md</location>
+    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md</location>
   </skill>
   <!-- More skills... -->
 </available_skills>`}
@@ -76,7 +76,7 @@ export default function Integrate() {
   <skill>
     <name>python-basics-101</name>
     <description>Learn fundamental Python concepts including variables, loops, and functions.</description>
-    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/python-basics-101/SKILL.md</location>
+    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md</location>
   </skill>
 </available_skills>`}
                 </code>
@@ -93,7 +93,7 @@ export default function Integrate() {
               </p>
               <pre className="bg-zinc-900 dark:bg-zinc-950 text-zinc-100 dark:text-zinc-300 p-4 rounded-lg overflow-x-auto border border-zinc-800 dark:border-zinc-800/80">
                 <code>
-                  {`curl https://raw.githubusercontent.com/skillwiki/catalog/main/skills/python-basics-101/SKILL.md`}
+                  {`curl https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md`}
                 </code>
               </pre>
               <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-4">

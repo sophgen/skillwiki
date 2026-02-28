@@ -14,10 +14,14 @@ export interface SkillMetadata {
 }
 
 export interface Skill {
-  id: string;
+  id: string; // Format: {domain}/{skill-name}, e.g. education/python-basics-101
   metadata: SkillMetadata;
   content: string;
   rawContent?: string; // Original SKILL.md file content for accurate copy
+  /** Domain from directory path (derived from id) */
+  domain?: string;
+  /** Skill name without domain prefix, for display */
+  slug?: string;
 }
 
 export interface SearchFilters {

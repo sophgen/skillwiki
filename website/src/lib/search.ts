@@ -52,7 +52,7 @@ export function searchSkills(skills: Skill[], filters: SearchFilters): Skill[] {
 
 export function sortSkills(
   skills: Skill[],
-  sortBy: 'recent' | 'rated' | 'popular' | 'alphabetical' = 'recent'
+  sortBy: 'default' | 'rated' | 'popular' | 'alphabetical' = 'default'
 ): Skill[] {
   const sorted = [...skills];
 
@@ -64,7 +64,7 @@ export function sortSkills(
     case 'popular':
       // Use rating as proxy for popularity until view count is available
       return sorted.sort((a, b) => (b.metadata.rating || 0) - (a.metadata.rating || 0));
-    case 'recent':
+    case 'default':
     default:
       return sorted;
   }

@@ -7,10 +7,9 @@ const matter = require(path.join(__dirname, '..', 'website', 'node_modules', 'gr
 const skillsDir = path.join(__dirname, '..', 'skills');
 const outputDir = path.join(__dirname, '..', 'website', 'public');
 
-// Centralized GitHub config - keep in sync with website/src/lib/config.ts
-const GITHUB_REPO = 'skillwiki/catalog';
-const GITHUB_BRANCH = 'main';
-const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_REPO}/${GITHUB_BRANCH}`;
+// Single source of truth: config.json at repo root (used by website/src/lib/config.ts)
+const sharedConfig = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config.json'), 'utf-8'));
+const RAW_BASE = `https://raw.githubusercontent.com/${sharedConfig.GITHUB_REPO}/${sharedConfig.GITHUB_BRANCH}`;
 
 function flattenMetadata(data) {
   if (!data) return {};
@@ -22,15 +21,17 @@ function flattenMetadata(data) {
   return flat;
 }
 
-function validateSkill(skillId, data, content) {
+const VALID_DOMAINS = ['automation', 'education', 'trading', 'development', 'workflow', 'general'];
+
+function validateSkill(skillId, skillName, domainDir, data, content) {
   const errors = [];
   const name = data?.name;
 
   if (!name || typeof name !== 'string') {
     errors.push(`Missing or invalid 'name' field`);
   } else {
-    if (name !== skillId) {
-      errors.push(`name "${name}" does not match directory "${skillId}"`);
+    if (name !== skillName) {
+      errors.push(`name "${name}" does not match directory "${skillName}"`);
     }
     if (name.length < 1 || name.length > 64) {
       errors.push(`name must be 1-64 characters (got ${name.length})`);
@@ -53,6 +54,16 @@ function validateSkill(skillId, data, content) {
     errors.push(`description must be 1-1024 characters (got ${desc.length})`);
   }
 
+  // Domain directory must match frontmatter domain if present
+  const frontmatterDomain = data?.metadata?.domain ?? data?.domain;
+  if (frontmatterDomain && frontmatterDomain !== domainDir) {
+    errors.push(`domain "${frontmatterDomain}" in frontmatter does not match directory "skills/${domainDir}/"`);
+  }
+
+  if (!VALID_DOMAINS.includes(domainDir)) {
+    errors.push(`invalid domain directory "${domainDir}"; allowed: ${VALID_DOMAINS.join(', ')}`);
+  }
+
   return errors;
 }
 
@@ -65,39 +76,51 @@ function parseSkills() {
     process.exit(1);
   }
 
-  const skillDirs = fs.readdirSync(skillsDir).filter((d) => !d.startsWith('_'));
+  const domainDirs = fs.readdirSync(skillsDir).filter((d) => !d.startsWith('_'));
 
-  skillDirs.forEach((skillId) => {
-    const skillPath = path.join(skillsDir, skillId, 'SKILL.md');
+  domainDirs.forEach((domainDir) => {
+    const domainPath = path.join(skillsDir, domainDir);
 
-    if (!fs.existsSync(skillPath)) {
-      console.warn(`WARN: Skipping ${skillId} - no SKILL.md found`);
+    if (!fs.statSync(domainPath).isDirectory()) {
       return;
     }
 
-    try {
-      const fileContent = fs.readFileSync(skillPath, 'utf-8');
-      const { data, content } = matter(fileContent);
-      const validationErrors = validateSkill(skillId, data, content);
+    const skillDirs = fs.readdirSync(domainPath);
 
-      if (validationErrors.length > 0) {
-        console.error(`ERROR: skills/${skillId}/SKILL.md validation failed:`);
-        validationErrors.forEach((e) => console.error(`  - ${e}`));
-        hasErrors = true;
+    skillDirs.forEach((skillName) => {
+      const skillPath = path.join(skillsDir, domainDir, skillName, 'SKILL.md');
+
+      if (!fs.existsSync(skillPath)) {
+        console.warn(`WARN: Skipping ${domainDir}/${skillName} - no SKILL.md found`);
         return;
       }
 
-      const flatMetadata = flattenMetadata(data);
+      const skillId = `${domainDir}/${skillName}`;
 
-      skills.push({
-        id: skillId,
-        metadata: flatMetadata,
-        contentPreview: (content || '').substring(0, 200),
-      });
-    } catch (err) {
-      console.error(`ERROR: Failed to parse skills/${skillId}/SKILL.md:`, err.message);
-      hasErrors = true;
-    }
+      try {
+        const fileContent = fs.readFileSync(skillPath, 'utf-8');
+        const { data, content } = matter(fileContent);
+        const validationErrors = validateSkill(skillId, skillName, domainDir, data, content);
+
+        if (validationErrors.length > 0) {
+          console.error(`ERROR: skills/${skillId}/SKILL.md validation failed:`);
+          validationErrors.forEach((e) => console.error(`  - ${e}`));
+          hasErrors = true;
+          return;
+        }
+
+        const flatMetadata = flattenMetadata(data);
+
+        skills.push({
+          id: skillId,
+          metadata: flatMetadata,
+          contentPreview: (content || '').substring(0, 200),
+        });
+      } catch (err) {
+        console.error(`ERROR: Failed to parse skills/${skillId}/SKILL.md:`, err.message);
+        hasErrors = true;
+      }
+    });
   });
 
   if (hasErrors) {
@@ -113,6 +136,8 @@ function generateXML(skills) {
       (skill) => `  <skill>
     <name>${escapeXml(skill.metadata.name)}</name>
     <description>${escapeXml(skill.metadata.description)}</description>
+    <domain>${escapeXml(skill.metadata.domain || '')}</domain>
+    <tags>${escapeXml(Array.isArray(skill.metadata.tags) ? skill.metadata.tags.join(',') : '')}</tags>
     <location>${RAW_BASE}/skills/${skill.id}/SKILL.md</location>
   </skill>`
     )

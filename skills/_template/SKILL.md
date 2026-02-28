@@ -1,6 +1,8 @@
 ---
-# Required: Must match the directory name (e.g., my-skill-name)
-name: my-skill-name
+# TEMPLATE FILE: Not a real skill. Copy to skills/{domain}/your-skill-name/ and update.
+# Required: Must match the skill directory name (e.g., your-skill-name), NOT the full path.
+# Place under a valid domain folder: automation | education | trading | development | workflow | general
+name: your-skill-name-here
 
 # Required: 1-1024 characters
 description: A clear, concise description of what this skill does and who it's for.

@@ -1,6 +1,8 @@
 ---
 name: email-automation
 description: Automate email workflows, send bulk messages, process templates, and schedule emails. Integrate with Gmail, Outlook, SMTP, and more.
+license: MIT
+compatibility: generic
 metadata:
   author: Carol Johnson
   difficulty: intermediate

@@ -18,7 +18,22 @@ function flattenMetadata(data: Record<string, unknown>): SkillMetadata {
 
 export function getSkillIds(): string[] {
   try {
-    return fs.readdirSync(skillsDir).filter((d) => !d.startsWith('_'));
+    const ids: string[] = [];
+    const domainDirs = fs.readdirSync(skillsDir).filter((d) => !d.startsWith('_'));
+
+    for (const domainDir of domainDirs) {
+      const domainPath = path.join(skillsDir, domainDir);
+      if (!fs.statSync(domainPath).isDirectory()) continue;
+
+      const skillDirs = fs.readdirSync(domainPath);
+      for (const skillName of skillDirs) {
+        const skillPath = path.join(skillsDir, domainDir, skillName, 'SKILL.md');
+        if (fs.existsSync(skillPath)) {
+          ids.push(`${domainDir}/${skillName}`);
+        }
+      }
+    }
+    return ids;
   } catch {
     return [];
   }
@@ -33,11 +48,17 @@ export function getSkillByIdSync(id: string): Skill | null {
     const { data, content } = matter(fileContent);
     const flatMetadata = flattenMetadata(data as Record<string, unknown>);
 
+    const parts = id.split('/');
+    const domain = parts.length >= 2 ? parts[0] : undefined;
+    const slug = parts.length >= 2 ? parts.slice(1).join('/') : id;
+
     return {
       id,
       metadata: flatMetadata,
       content,
       rawContent: fileContent,
+      domain,
+      slug,
     };
   } catch (error) {
     console.error(`Error reading skill ${id}:`, error);

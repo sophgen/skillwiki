@@ -20,7 +20,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
     difficulties: [],
     query: '',
   });
-  const [sortBy, setSortBy] = useState<'recent' | 'rated' | 'popular' | 'alphabetical'>('recent');
+  const [sortBy, setSortBy] = useState<'default' | 'rated' | 'popular' | 'alphabetical'>('default');
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredSkills = useMemo(() => {
@@ -170,7 +170,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                   skills={filteredSkills}
                   sortBy={sortBy}
                   onSortChange={(sort) =>
-                    setSortBy(sort as 'recent' | 'rated' | 'popular' | 'alphabetical')
+                    setSortBy(sort as 'default' | 'rated' | 'popular' | 'alphabetical')
                   }
                   gridCols="lg:grid-cols-3"
                 />

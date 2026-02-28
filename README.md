@@ -13,10 +13,13 @@ SkillWiki provides a curated collection of agent skills across domains like educ
 
 ```
 skillwiki-catalog/
-├── skills/              # Agent skill definitions (SKILL.md files)
-│   ├── python-basics-101/
-│   ├── stock-analysis/
-│   └── email-automation/
+├── skills/              # Agent skill definitions (SKILL.md files), organized by domain
+│   ├── education/
+│   │   └── python-basics-101/
+│   ├── trading/
+│   │   └── stock-analysis/
+│   └── workflow/
+│       └── email-automation/
 ├── website/            # Next.js website application
 │   ├── src/
 │   │   ├── pages/      # Website pages (index, [id], integrate)
@@ -73,13 +76,14 @@ Output in `website/out/` ready for GitHub Pages.
 
 ## Adding Skills
 
-1. Create a skill directory:
+1. Create a skill directory under a domain folder:
    ```
-   skills/my-new-skill/
+   skills/{domain}/my-new-skill/
    ├── SKILL.md
    ├── scripts/ (optional)
    └── references/ (optional)
    ```
+   Valid domains: `automation`, `education`, `trading`, `development`, `workflow`, `general`
 
 2. Create `SKILL.md` with frontmatter:
    ```yaml
@@ -151,7 +155,7 @@ Agents can integrate SkillWiki skills:
 curl https://skillwiki.ai/available-skills.xml
 
 # Load skill
-curl https://raw.githubusercontent.com/skillwiki/catalog/main/skills/python-basics-101/SKILL.md
+curl https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md
 ```
 
 Example integration with Claude:
@@ -161,7 +165,7 @@ Example integration with Claude:
   <skill>
     <name>python-basics-101</name>
     <description>Learn Python fundamentals...</description>
-    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/python-basics-101/SKILL.md</location>
+    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md</location>
   </skill>
 </available_skills>
 ```

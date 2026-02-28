@@ -81,6 +81,10 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
       <Head>
         <title>{name} - SkillWiki</title>
         <meta name="description" content={description} />
+        <meta property="og:title" content={`${name} - SkillWiki`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary" />
       </Head>
 
       <Header />
@@ -92,7 +96,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
         {/* Hero section */}
         <section className="relative z-10 pt-12 pb-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Breadcrumbs */}
+            {/* Breadcrumbs: Home → Domain → Skill Name */}
             <nav className="flex mb-8" aria-label="Breadcrumb">
               <ol className="inline-flex items-center space-x-1 md:space-x-3 text-sm font-medium">
                 <li className="inline-flex items-center">
@@ -101,12 +105,16 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                     Skills
                   </Link>
                 </li>
-                <li>
-                  <div className="flex items-center">
-                    <svg className="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
-                    <span className="ml-1 text-zinc-400 dark:text-zinc-500 md:ml-2 capitalize">{domain}</span>
-                  </div>
-                </li>
+                {domain && (
+                  <li>
+                    <div className="flex items-center">
+                      <svg className="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
+                      <Link href="/" className="ml-1 text-zinc-400 dark:text-zinc-500 hover:text-brand-600 dark:hover:text-brand-400 md:ml-2 capitalize transition-colors">
+                        {domain}
+                      </Link>
+                    </div>
+                  </li>
+                )}
                 <li aria-current="page">
                   <div className="flex items-center">
                     <svg className="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" /></svg>
@@ -284,9 +292,10 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const skillIds = getSkillIds();
-  const paths = skillIds.map((id) => ({
-    params: { id },
-  }));
+  const paths = skillIds.map((id) => {
+    const slug = id.split('/');
+    return { params: { slug } };
+  });
 
   return {
     paths,
@@ -295,18 +304,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<SkillDetailProps> = async ({ params }) => {
-  const skillId = params?.id as string;
+  const slug = params?.slug as string[];
+  const skillId = slug ? slug.join('/') : '';
+
   const skill = getSkillByIdSync(skillId);
 
   if (!skill) {
     return { notFound: true };
   }
 
-  // Get related skills (same domain)
+  // Get related skills (same domain) — strip content/rawContent to reduce static JSON
   const allSkills = getAllSkills();
-  const relatedSkills = allSkills.filter(
-    (s) => s.metadata.domain === skill.metadata.domain && s.id !== skillId
-  );
+  const relatedSkills = allSkills
+    .filter((s) => s.metadata.domain === skill.metadata.domain && s.id !== skillId)
+    .map(({ content, rawContent, ...rest }) => ({ ...rest, content: '', rawContent: undefined }));
 
   return {
     props: {

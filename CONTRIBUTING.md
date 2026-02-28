@@ -6,15 +6,18 @@ Thank you for contributing to the SkillWiki catalog! This guide explains how to 
 
 ### 1. Create Your Skill Directory
 
-Create a new folder under `skills/` with a lowercase, hyphenated name that describes your skill:
+Create a new folder under `skills/{domain}/` with a lowercase, hyphenated name that describes your skill:
 
 ```
 skills/
-  my-awesome-skill/
-    SKILL.md
+  {domain}/
+    my-awesome-skill/
+      SKILL.md
 ```
 
-The directory name **must** exactly match the `name` field in your SKILL.md frontmatter.
+- The skill directory name **must** exactly match the `name` field in your SKILL.md frontmatter.
+- The skill must be placed under a valid **domain** folder. Valid domains: `automation`, `education`, `trading`, `development`, `workflow`, `general`.
+- The `domain` in your frontmatter must match the domain directory name.
 
 ### 2. Use the Template
 
@@ -49,7 +52,7 @@ If validation fails, fix the reported errors before pushing.
 
 ### 4. Submit Your Change
 
-1. `git add skills/my-awesome-skill/`
+1. `git add skills/{domain}/my-awesome-skill/`
 2. `git commit -m "Add my-awesome-skill"`
 3. Push to your fork and open a pull request
 
@@ -58,3 +61,13 @@ GitHub Actions will validate all skills, rebuild the site, and deploy on merge t
 ## Spec Reference
 
 Skill format follows the [agentskills.io specification](https://agentskills.io/specification).
+
+### SkillWiki Metadata Extension
+
+The agentskills.io spec defines `metadata` as a map of string keys to string values. SkillWiki extends this for catalog usability:
+
+- **Arrays** (`useCases`, `tags`) — used for filtering, search, and display
+- **Booleans** (`featured`) — used for homepage curation
+- **Numbers** (`rating`) — used for sort and badges
+
+This extension is a pragmatic tradeoff. If strict spec compliance is required for your use case, serialize values as comma-separated strings (e.g. `tags: "python,programming,beginners"`).

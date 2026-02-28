@@ -1,6 +1,8 @@
 ---
 name: python-basics-101
 description: Learn fundamental Python concepts including variables, loops, functions, and data structures. Perfect for beginners starting their programming journey.
+license: MIT
+compatibility: generic
 metadata:
   author: Jane Doe
   difficulty: beginner

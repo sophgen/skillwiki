@@ -1,6 +1,8 @@
 ---
 name: stock-analysis
 description: Analyze stock market data, calculate technical indicators, and generate trading signals. Professional-grade analysis tool for traders and investors.
+license: MIT
+compatibility: generic
 metadata:
   author: Bob Smith
   difficulty: advanced

@@ -1,5 +1,4 @@
 import { Skill } from '../lib/types';
-import { useState } from 'react';
 import Link from 'next/link';
 
 interface SkillCardProps {
@@ -9,7 +8,6 @@ interface SkillCardProps {
 }
 
 export default function SkillCard({ skill, style, className = '' }: SkillCardProps) {
-  const [copied, setCopied] = useState(false);
   const { name: rawName, description, domain, difficulty, rating, author, tags } = skill.metadata;
 
   // Format slug-like names to human readable
@@ -32,17 +30,6 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
   };
 
   const dConfig = domain ? getDomainConfig(domain) : domainConfig.general;
-
-  const handleCopy = async () => {
-    try {
-      const content = `---\nname: ${skill.id}\ndescription: ${description}\n---\n\n${skill.content}`;
-      await navigator.clipboard.writeText(content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error('Failed to copy:', error);
-    }
-  };
 
   const difficultyStyles: Record<string, string> = {
     beginner: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50',
@@ -110,7 +97,7 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
         </div>
       )}
 
-      {/* Action buttons */}
+      {/* Action - copy full skill from detail page */}
       <div className="flex gap-3 mt-auto pt-5 border-t border-zinc-100 dark:border-zinc-800 relative z-10">
         <Link
           href={`/skills/${skill.id}`}
@@ -118,20 +105,6 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
         >
           View Details
         </Link>
-        <button
-          onClick={handleCopy}
-          className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-mono font-bold uppercase tracking-wide transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 flex items-center justify-center gap-1.5 ${copied
-            ? 'bg-emerald-50 dark:bg-emerald-900/40 border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 transform scale-105'
-            : 'bg-white dark:bg-transparent border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-white/5 hover:border-zinc-300 dark:hover:border-zinc-600 dark:hover:text-white'
-            }`}
-        >
-          {copied ? (
-            <span className="flex items-center gap-1 scale-110 transition-transform duration-300">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
-              Copied
-            </span>
-          ) : 'Copy Prompt'}
-        </button>
       </div>
     </div>
   );

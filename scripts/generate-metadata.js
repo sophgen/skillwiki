@@ -3,6 +3,7 @@ const path = require('path');
 
 // Resolve modules from website/node_modules since this script runs from root
 const matter = require(path.join(__dirname, '..', 'website', 'node_modules', 'gray-matter'));
+const AdmZip = require(path.join(__dirname, '..', 'website', 'node_modules', 'adm-zip'));
 
 const skillsDir = path.join(__dirname, '..', 'skills');
 const outputDir = path.join(__dirname, '..', 'website', 'public');
@@ -137,6 +138,20 @@ function parseSkills() {
           metadata: flatMetadata,
           contentPreview: (content || '').substring(0, 200),
         });
+
+        // Generate zip for the skill
+        const skillDirPath = path.join(skillsDir, domainDir, skillName);
+        const zipOutputDir = path.join(outputDir, 'skills', domainDir);
+        if (!fs.existsSync(zipOutputDir)) {
+          fs.mkdirSync(zipOutputDir, { recursive: true });
+        }
+        const zipFile = path.join(zipOutputDir, `${skillName}.zip`);
+        
+        const zip = new AdmZip();
+        // Add the skill directory contents into a folder named after the skill,
+        // which matches the Agent Skills specification
+        zip.addLocalFolder(skillDirPath, skillName);
+        zip.writeZip(zipFile);
       } catch (err) {
         console.error(`ERROR: Failed to parse skills/${skillId}/SKILL.md:`, err.message);
         hasErrors = true;

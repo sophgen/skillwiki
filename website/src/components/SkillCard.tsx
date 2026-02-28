@@ -101,10 +101,21 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
       <div className="flex gap-3 mt-auto pt-5 border-t border-zinc-100 dark:border-zinc-800 relative z-10">
         <Link
           href={`/skills/${skill.id}`}
-          className="flex-1 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded-xl hover:bg-brand-700 dark:hover:bg-brand-600 hover:shadow-glow text-xs font-mono font-bold uppercase tracking-wide transition-all text-center outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1"
+          className="flex-1 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded-xl hover:bg-brand-700 dark:hover:bg-brand-600 hover:shadow-glow text-xs font-mono font-bold uppercase tracking-wide transition-all text-center flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1"
         >
           View Details
         </Link>
+        <a
+          href={`/skills/${skill.id}.zip`}
+          download
+          title="Export Agent Skill (.zip)"
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center justify-center px-4 py-2.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 rounded-xl transition-all outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 group-hover:border-zinc-300 dark:group-hover:border-zinc-600"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </a>
       </div>
     </div>
   );

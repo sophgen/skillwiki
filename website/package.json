@@ -12,6 +12,7 @@
     "validate": "npm run build:metadata"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "markdown-it": "^13.0.2",

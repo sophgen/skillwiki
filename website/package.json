@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "npm run build:metadata && next build",
     "build:metadata": "node ../scripts/generate-metadata.js",
+    "sync:anthropics": "node ../scripts/sync-anthropics-skills.js",
+    "sync:anthropics:clone": "node ../scripts/sync-anthropics-skills.js --clone",
     "build:next": "next build && next export",
     "start": "next start",
     "lint": "next lint",

@@ -1,15 +1,8 @@
 ---
+domain: development
 name: web-artifacts-builder
 description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
 license: Complete terms in LICENSE.txt
-metadata:
-  author: Anthropic
-  difficulty: intermediate
-  rating: "4.5"
-  domain: development
-  use-cases: "html-artifact-creation, react-app-bundling, shadcn-ui-components, claude-artifacts"
-  featured: "false"
-  tags: "react, tailwind, shadcn, artifacts, html, bundling, vite, typescript"
 ---
 
 # Web Artifacts Builder
@@ -48,7 +41,7 @@ This creates a fully configured project with:
 
 ### Step 2: Develop Your Artifact
 
-Edit the generated files. See Common Development Tasks below for guidance.
+To build the artifact, edit the generated files. See **Common Development Tasks** below for guidance.
 
 ### Step 3: Bundle to Single HTML File
 
@@ -59,6 +52,8 @@ bash scripts/bundle-artifact.sh
 
 This creates `bundle.html` - a self-contained artifact with all JavaScript, CSS, and dependencies inlined. This file can be directly shared in Claude conversations as an artifact.
 
+**Requirements**: Your project must have an `index.html` in the root directory.
+
 **What the script does**:
 - Installs bundling dependencies (parcel, @parcel/config-default, parcel-resolver-tspaths, html-inline)
 - Creates `.parcelrc` config with path alias support
@@ -67,14 +62,14 @@ This creates `bundle.html` - a self-contained artifact with all JavaScript, CSS,
 
 ### Step 4: Share Artifact with User
 
-Share the bundled HTML file in conversation with the user so they can view it as an artifact.
+Finally, share the bundled HTML file in conversation with the user so they can view it as an artifact.
 
 ### Step 5: Testing/Visualizing the Artifact (Optional)
 
-Note: This is a completely optional step. Only perform if necessary or requested. Avoid testing the artifact upfront as it adds latency.
+Note: This is a completely optional step. Only perform if necessary or requested.
+
+To test/visualize the artifact, use available tools (including other Skills or built-in tools like Playwright or Puppeteer). In general, avoid testing the artifact upfront as it adds latency between the request and when the finished artifact can be seen. Test later, after presenting the artifact, if requested or if issues arise.
 
 ## Reference
 
 - **shadcn/ui components**: https://ui.shadcn.com/docs/components
-
-> **Source**: This skill is sourced from [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) on GitHub. Scripts (`init-artifact.sh`, `bundle-artifact.sh`) are bundled in the full skill download.

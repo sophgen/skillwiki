@@ -1,20 +1,14 @@
 ---
+domain: general
 name: theme-factory
-description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been created, or can generate a new theme on-the-fly.
+description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
 license: Complete terms in LICENSE.txt
-metadata:
-  author: Anthropic
-  difficulty: beginner
-  rating: "4.1"
-  domain: general
-  use-cases: "theme-application, presentation-styling, color-palette-selection, font-pairing"
-  featured: "false"
-  tags: "themes, styling, colors, fonts, design, presentations, slides"
 ---
+
 
 # Theme Factory Skill
 
-This skill provides a curated collection of professional font and color themes, each with carefully selected color palettes and font pairings. Once a theme is chosen, it can be applied to any artifact.
+This skill provides a curated collection of professional font and color themes themes, each with carefully selected color palettes and font pairings. Once a theme is chosen, it can be applied to any artifact.
 
 ## Purpose
 
@@ -24,6 +18,8 @@ To apply consistent, professional styling to presentation slide decks, use this 
 - A distinct visual identity suitable for different contexts and audiences
 
 ## Usage Instructions
+
+To apply styling to a slide deck or other artifact:
 
 1. **Show the theme showcase**: Display the `theme-showcase.pdf` file to allow users to see all available themes visually. Do not make any modifications to it; simply show the file for viewing.
 2. **Ask for their choice**: Ask which theme to apply to the deck
@@ -61,7 +57,4 @@ After a preferred theme is selected:
 4. Maintain the theme's visual identity across all slides
 
 ## Create your Own Theme
-
 To handle cases where none of the existing themes work for an artifact, create a custom theme. Based on provided inputs, generate a new theme similar to the ones above. Give the theme a similar name describing what the font/color combinations represent. Use any basic description provided to choose appropriate colors/fonts. After generating the theme, show it for review and verification. Following that, apply the theme as described above.
-
-> **Source**: This skill is sourced from [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/theme-factory) on GitHub. The `themes/` directory and `theme-showcase.pdf` are bundled in the full skill download.

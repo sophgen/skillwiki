@@ -1,15 +1,8 @@
 ---
+domain: development
 name: webapp-testing
 description: Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.
 license: Complete terms in LICENSE.txt
-metadata:
-  author: Anthropic
-  difficulty: intermediate
-  rating: "4.3"
-  domain: development
-  use-cases: "web-app-testing, playwright-automation, ui-debugging, browser-screenshot, frontend-verification"
-  featured: "false"
-  tags: "testing, playwright, browser, automation, ui, debugging, screenshots"
 ---
 
 # Web Application Testing
@@ -19,7 +12,7 @@ To test local web applications, write native Python Playwright scripts.
 **Helper Scripts Available**:
 - `scripts/with_server.py` - Manages server lifecycle (supports multiple servers)
 
-**Always run scripts with `--help` first** to see usage. DO NOT read the source until you try running the script first and find that a customized solution is absolutely necessary. These scripts can be very large and thus pollute your context window. They exist to be called directly as black-box scripts rather than ingested into your context window.
+**Always run scripts with `--help` first** to see usage. DO NOT read the source until you try running the script first and find that a customized solution is abslutely necessary. These scripts can be very large and thus pollute your context window. They exist to be called directly as black-box scripts rather than ingested into your context window.
 
 ## Decision Tree: Choosing Your Approach
 
@@ -62,10 +55,10 @@ To create an automation script, include only Playwright logic (servers are manag
 from playwright.sync_api import sync_playwright
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)  # Always launch chromium in headless mode
+    browser = p.chromium.launch(headless=True) # Always launch chromium in headless mode
     page = browser.new_page()
-    page.goto('http://localhost:5173')  # Server already running and ready
-    page.wait_for_load_state('networkidle')  # CRITICAL: Wait for JS to execute
+    page.goto('http://localhost:5173') # Server already running and ready
+    page.wait_for_load_state('networkidle') # CRITICAL: Wait for JS to execute
     # ... your automation logic
     browser.close()
 ```
@@ -85,12 +78,12 @@ with sync_playwright() as p:
 
 ## Common Pitfall
 
-❌ **Don't** inspect the DOM before waiting for `networkidle` on dynamic apps  
+❌ **Don't** inspect the DOM before waiting for `networkidle` on dynamic apps
 ✅ **Do** wait for `page.wait_for_load_state('networkidle')` before inspection
 
 ## Best Practices
 
-- **Use bundled scripts as black boxes** - Use `--help` to see usage, then invoke directly.
+- **Use bundled scripts as black boxes** - To accomplish a task, consider whether one of the scripts available in `scripts/` can help. These scripts handle common, complex workflows reliably without cluttering the context window. Use `--help` to see usage, then invoke directly. 
 - Use `sync_playwright()` for synchronous scripts
 - Always close the browser when done
 - Use descriptive selectors: `text=`, `role=`, CSS selectors, or IDs
@@ -98,8 +91,7 @@ with sync_playwright() as p:
 
 ## Reference Files
 
-- **examples/element_discovery.py** - Discovering buttons, links, and inputs on a page
-- **examples/static_html_automation.py** - Using file:// URLs for local HTML
-- **examples/console_logging.py** - Capturing console logs during automation
-
-> **Source**: This skill is sourced from [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) on GitHub. Scripts and examples are bundled in the full skill download.
+- **examples/** - Examples showing common patterns:
+  - `element_discovery.py` - Discovering buttons, links, and inputs on a page
+  - `static_html_automation.py` - Using file:// URLs for local HTML
+  - `console_logging.py` - Capturing console logs during automation

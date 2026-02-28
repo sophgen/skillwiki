@@ -201,6 +201,5 @@ export const getStaticProps: GetStaticProps<SkillDetailProps> = async ({ params 
       skill,
       relatedSkills,
     },
-    revalidate: 3600,
   };
 };

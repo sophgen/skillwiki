@@ -45,3 +45,23 @@ export function getSkillMetadata(id: string): SkillMetadata | null {
   const skill = getSkillByIdSync(id);
   return skill ? skill.metadata : null;
 }
+
+export function getUniqueDomains(skills: Skill[]): string[] {
+  const domains = new Set<string>();
+  skills.forEach((skill) => {
+    if (skill.metadata.domain) {
+      domains.add(skill.metadata.domain);
+    }
+  });
+  return Array.from(domains).sort();
+}
+
+export function getUniqueDifficulties(skills: Skill[]): string[] {
+  const difficulties = new Set<string>();
+  skills.forEach((skill) => {
+    if (skill.metadata.difficulty) {
+      difficulties.add(skill.metadata.difficulty);
+    }
+  });
+  return Array.from(difficulties).sort();
+}

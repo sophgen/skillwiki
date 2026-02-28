@@ -124,6 +124,5 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
       domains,
       difficulties,
     },
-    revalidate: 3600, // Revalidate every hour
   };
 };

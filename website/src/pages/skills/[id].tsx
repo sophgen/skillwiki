@@ -9,9 +9,10 @@ import 'highlight.js/styles/atom-one-dark.css';
 import Header from '../../components/Header';
 import { Skill } from '../../lib/types';
 import { getSkillByIdSync, getSkillIds, getAllSkills } from '../../lib/skills';
+import { REPO_TREE_BASE } from '../../lib/config';
 
 const md: MarkdownIt = new MarkdownIt({
-  html: true,
+  html: false, // Disable raw HTML for security
   linkify: true,
   breaks: true,
   highlight: function (str: string, lang: string): string {
@@ -33,7 +34,7 @@ interface SkillDetailProps {
 
 export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) {
   const [copied, setCopied] = useState(false);
-  const { name: rawName, description, author, difficulty, rating, domain, useCases, tags } = skill.metadata;
+  const { name: rawName, description, author, difficulty, rating, domain, useCases, tags, license, compatibility } = skill.metadata;
 
   // Format slug-like names to human readable
   const name = rawName.includes('-') && !rawName.includes(' ')
@@ -53,6 +54,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
     education: { color: 'text-green-700 dark:text-green-300', bg: 'bg-green-50 dark:bg-green-900/20', border: 'border-green-200/50 dark:border-green-800/50' },
     trading: { color: 'text-amber-700 dark:text-amber-300', bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-200/50 dark:border-amber-800/50' },
     development: { color: 'text-purple-700 dark:text-purple-300', bg: 'bg-purple-50 dark:bg-purple-900/20', border: 'border-purple-200/50 dark:border-purple-800/50' },
+    workflow: { color: 'text-cyan-700 dark:text-cyan-300', bg: 'bg-cyan-50 dark:bg-cyan-900/20', border: 'border-cyan-200/50 dark:border-cyan-800/50' },
     general: { color: 'text-zinc-700 dark:text-zinc-300', bg: 'bg-zinc-50 dark:bg-zinc-900/50', border: 'border-zinc-200/50 dark:border-zinc-800/50' }
   };
 
@@ -63,17 +65,10 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
   const handleCopy = async () => {
     try {
-      // Create full SKILL.md content
-      let content = `---\nname: ${skill.metadata.name}\ndescription: ${skill.metadata.description}\n`;
+      // Copy original raw SKILL.md content (preserves all frontmatter fields)
+      const contentToCopy = skill.rawContent ?? `---\nname: ${skill.metadata.name}\ndescription: ${skill.metadata.description}\n---\n\n${skill.content}`;
 
-      if (author) content += `metadata:\n  author: ${author}\n`;
-      if (difficulty) content += `  difficulty: ${difficulty}\n`;
-      if (rating) content += `  rating: ${rating}\n`;
-      if (domain) content += `  domain: ${domain}\n`;
-
-      content += `---\n\n${skill.content}`;
-
-      await navigator.clipboard.writeText(content);
+      await navigator.clipboard.writeText(contentToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
@@ -184,7 +179,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                 )}
               </button>
               <a
-                href={`https://github.com/skillwiki/catalog/tree/main/skills/${skill.id}`}
+                href={`${REPO_TREE_BASE}/skills/${skill.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3.5 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 font-bold text-sm shadow-sm transition-all focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950 flex items-center gap-2"
@@ -211,6 +206,27 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
             {/* Sidebar */}
             <aside className="lg:w-1/3">
+              {/* Spec fields */}
+              {(license || compatibility) && (
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 mb-8 transition-colors">
+                  <h3 className="font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4 text-lg">Spec</h3>
+                  <dl className="space-y-3 text-sm">
+                    {license && (
+                      <>
+                        <dt className="text-zinc-500 dark:text-zinc-400 font-medium">License</dt>
+                        <dd className="text-zinc-900 dark:text-zinc-100 font-mono">{license}</dd>
+                      </>
+                    )}
+                    {compatibility && (
+                      <>
+                        <dt className="text-zinc-500 dark:text-zinc-400 font-medium">Compatibility</dt>
+                        <dd className="text-zinc-900 dark:text-zinc-100">{compatibility}</dd>
+                      </>
+                    )}
+                  </dl>
+                </div>
+              )}
+
               {/* Tags */}
               {tags && tags.length > 0 && (
                 <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 mb-8 transition-colors">

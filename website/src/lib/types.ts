@@ -1,6 +1,8 @@
 export interface SkillMetadata {
   name: string;
   description: string;
+  license?: string;
+  compatibility?: string;
   author?: string;
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   rating?: number;
@@ -8,13 +10,14 @@ export interface SkillMetadata {
   useCases?: string[];
   featured?: boolean;
   tags?: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Skill {
   id: string;
   metadata: SkillMetadata;
   content: string;
+  rawContent?: string; // Original SKILL.md file content for accurate copy
 }
 
 export interface SearchFilters {

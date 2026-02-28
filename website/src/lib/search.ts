@@ -4,20 +4,26 @@ export function searchSkills(skills: Skill[], filters: SearchFilters): Skill[] {
   return skills.filter((skill) => {
     const meta = skill.metadata;
 
-    // Text search
+    // Text search: split query into tokens, match any token
     if (filters.query) {
-      const query = filters.query.toLowerCase();
-      const searchFields = [
-        meta.name,
-        meta.description,
-        meta.author,
-        ...(meta.tags || []),
-        ...(meta.useCases || []),
-      ]
-        .join(' ')
-        .toLowerCase();
-
-      if (!searchFields.includes(query)) return false;
+      const tokens = filters.query
+        .toLowerCase()
+        .trim()
+        .split(/\s+/)
+        .filter((t) => t.length > 0);
+      if (tokens.length > 0) {
+        const searchFields = [
+          meta.name,
+          meta.description,
+          meta.author,
+          ...(meta.tags || []),
+          ...(meta.useCases || []),
+        ]
+          .join(' ')
+          .toLowerCase();
+        const matchesAll = tokens.every((token) => searchFields.includes(token));
+        if (!matchesAll) return false;
+      }
     }
 
     // Domain filter
@@ -56,8 +62,8 @@ export function sortSkills(
     case 'alphabetical':
       return sorted.sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
     case 'popular':
-      // Placeholder: would need view count in metadata
-      return sorted;
+      // Use rating as proxy for popularity until view count is available
+      return sorted.sort((a, b) => (b.metadata.rating || 0) - (a.metadata.rating || 0));
     case 'recent':
     default:
       return sorted;

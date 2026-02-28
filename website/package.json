@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:metadata && next build && next export",
+    "build": "npm run build:metadata && next build",
     "build:metadata": "node ../scripts/generate-metadata.js",
     "build:next": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "validate": "npm run build:metadata"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

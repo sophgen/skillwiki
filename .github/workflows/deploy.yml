@@ -3,8 +3,16 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    paths:
+      - 'skills/**'
+      - 'website/**'
+      - 'scripts/**'
   pull_request:
     branches: [main]
+    paths:
+      - 'skills/**'
+      - 'website/**'
+      - 'scripts/**'
 
 jobs:
   build-and-deploy:
@@ -24,11 +32,7 @@ jobs:
         working-directory: ./website
         run: npm ci
 
-      - name: Build metadata
-        working-directory: ./website
-        run: npm run build:metadata
-
-      - name: Build and export
+      - name: Build
         working-directory: ./website
         run: npm run build
 

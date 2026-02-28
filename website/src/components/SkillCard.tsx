@@ -22,6 +22,7 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
     education: { color: 'text-green-600 dark:text-green-400', icon: '🎓', border: 'border-t-green-500' },
     trading: { color: 'text-amber-600 dark:text-amber-400', icon: '📈', border: 'border-t-amber-500' },
     development: { color: 'text-purple-600 dark:text-purple-400', icon: '💻', border: 'border-t-purple-500' },
+    workflow: { color: 'text-cyan-600 dark:text-cyan-400', icon: '🔄', border: 'border-t-cyan-500' },
     general: { color: 'text-zinc-600 dark:text-zinc-400', icon: '🔧', border: 'border-t-zinc-500' }
   };
 

@@ -70,7 +70,8 @@ export default function FilterSidebar({
                   domain === 'education' ? 'peer-checked:bg-green-600 peer-checked:border-green-600' :
                     domain === 'trading' ? 'peer-checked:bg-amber-600 peer-checked:border-amber-600' :
                       domain === 'development' ? 'peer-checked:bg-purple-600 peer-checked:border-purple-600' :
-                        'peer-checked:bg-zinc-600 peer-checked:border-zinc-600';
+                        domain === 'workflow' ? 'peer-checked:bg-cyan-600 peer-checked:border-cyan-600' :
+                          'peer-checked:bg-zinc-600 peer-checked:border-zinc-600';
               return (
                 <label key={domain} className="flex items-center cursor-pointer group">
                   <div className="relative flex items-center justify-center w-5 h-5 mr-3">

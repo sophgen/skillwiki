@@ -5,8 +5,8 @@ import Header from '../components/Header';
 import FilterSidebar from '../components/FilterSidebar';
 import SkillGrid from '../components/SkillGrid';
 import { Skill, SearchFilters } from '../lib/types';
-import { getAllSkills, getUniqueDomains, getUniqueDifficulties } from '../lib/skills';
-import { searchSkills, sortSkills } from '../lib/search';
+import { getAllSkills } from '../lib/skills';
+import { searchSkills, sortSkills, getUniqueDomains, getUniqueDifficulties } from '../lib/search';
 
 interface HomeProps {
   initialSkills: Skill[];
@@ -116,6 +116,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                         if (d === 'education') return '🎓';
                         if (d === 'trading') return '📈';
                         if (d === 'development') return '💻';
+                        if (d === 'workflow') return '🔄';
                         return '🔧';
                       })()}
                     </div>
@@ -187,9 +188,15 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const domains = getUniqueDomains(skills);
   const difficulties = getUniqueDifficulties(skills);
 
+  // Strip full content from homepage to reduce static JSON size
+  const initialSkills = skills.map(({ content, ...rest }) => ({
+    ...rest,
+    content: '',
+  }));
+
   return {
     props: {
-      initialSkills: skills,
+      initialSkills,
       domains,
       difficulties,
     },

@@ -59,7 +59,7 @@ export default function FilterSidebar({
       </div>
 
       {/* Domain filter */}
-      {domains && domains.length > 1 && (
+      {domains && domains.length > 0 && (
         <div className="mb-8 relative z-10">
           <h3 className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-4">Domain</h3>
           <div className="space-y-3">
@@ -97,7 +97,7 @@ export default function FilterSidebar({
       )}
 
       {/* Difficulty filter */}
-      {difficulties && difficulties.length > 1 && (
+      {difficulties && difficulties.length > 0 && (
         <div className="mb-8 relative z-10">
           <h3 className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-4">Difficulty</h3>
           <div className="space-y-3">

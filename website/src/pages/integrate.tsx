@@ -5,7 +5,7 @@ export default function Integrate() {
   return (
     <>
       <Head>
-        <title>For Agents - SkillWiki</title>
+        <title>Integration Guide - SkillWiki</title>
         <meta name="description" content="How agents can discover and integrate SkillWiki skills" />
       </Head>
 
@@ -13,7 +13,7 @@ export default function Integrate() {
 
       <main className="bg-zinc-50 dark:bg-zinc-950 min-h-screen pt-32 pb-16 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl lg:text-5xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-8 tracking-tight">For Agents</h1>
+          <h1 className="text-4xl lg:text-5xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-8 tracking-tight">Integration Guide</h1>
 
           <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 md:p-12 space-y-10 transition-colors">
             {/* Overview */}

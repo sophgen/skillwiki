@@ -4,7 +4,7 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200/80 dark:border-zinc-800/80 pt-16 pb-8 mt-auto transition-colors duration-300">
+        <footer className="bg-zinc-50 dark:bg-zinc-900 border-t border-zinc-200/80 dark:border-zinc-800/80 pt-16 pb-8 mt-auto transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     <div className="md:col-span-2">
@@ -26,7 +26,7 @@ export default function Footer() {
                         <ul className="space-y-3">
                             <li>
                                 <Link href="/integrate" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
-                                    For Agents
+                                    Integration Guide
                                 </Link>
                             </li>
                             <li>

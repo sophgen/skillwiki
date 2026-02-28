@@ -53,7 +53,10 @@ export default function SkillGrid({
             </svg>
           </div>
           <h3 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-2">No skills found</h3>
-          <p className="text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto text-sm">We couldn't find any skills matching your current filters. Try adjusting your search query or clear the filters.</p>
+          <p className="text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto text-sm mb-6">We couldn't find any skills matching your current filters. Try adjusting your search query or clear the filters.</p>
+          <button onClick={() => window.location.reload()} className="px-5 py-2.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-xl text-sm font-bold border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1">
+            Clear All Filters
+          </button>
         </div>
       ) : (
         <div className={`grid grid-cols-1 md:grid-cols-2 ${gridCols} gap-6`}>

@@ -3,11 +3,28 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import MarkdownIt from 'markdown-it';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
+
 import Header from '../../components/Header';
 import { Skill } from '../../lib/types';
 import { getSkillByIdSync, getSkillIds, getAllSkills } from '../../lib/skills';
 
-const md = new MarkdownIt({ html: true, linkify: true, breaks: true });
+const md: MarkdownIt = new MarkdownIt({
+  html: true,
+  linkify: true,
+  breaks: true,
+  highlight: function (str: string, lang: string): string {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return '<pre class="hljs"><code>' +
+          hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+          '</code></pre>';
+      } catch (__) { }
+    }
+    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+  }
+});
 
 interface SkillDetailProps {
   skill: Skill;
@@ -155,7 +172,10 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                   }`}
               >
                 {copied ? (
-                  <>✓ Copied to Clipboard</>
+                  <span className="flex items-center gap-1 scale-110 transition-transform duration-300">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    Copied
+                  </span>
                 ) : (
                   <>
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
@@ -181,7 +201,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
             {/* Main content */}
             <div className="lg:w-2/3">
-              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 lg:p-12 prose prose-zinc dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-brand-600 dark:prose-a:text-brand-400 hover:prose-a:text-brand-700 dark:hover:prose-a:text-brand-300 max-w-none prose-pre:bg-zinc-900 prose-pre:shadow-inner prose-img:rounded-xl">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 lg:p-12 prose prose-zinc dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-brand-600 dark:prose-a:text-brand-400 hover:prose-a:text-brand-700 dark:hover:prose-a:text-brand-300 max-w-none prose-pre:bg-[#282c34] prose-pre:shadow-inner prose-pre:overflow-x-auto prose-img:rounded-xl">
                 <div
                   className="markdown-body"
                   dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -220,7 +240,19 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                         className="group block"
                       >
                         <h4 className="font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 text-sm">{relatedSkill.metadata.name}</h4>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2">{relatedSkill.metadata.description}</p>
+                        <div className="flex gap-2 mt-1 mb-1 items-center flex-wrap">
+                          {relatedSkill.metadata.difficulty && (
+                            <span className="text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400">
+                              {relatedSkill.metadata.difficulty}
+                            </span>
+                          )}
+                          {relatedSkill.metadata.rating && (
+                            <span className="text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300 flex items-center bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
+                              <span className="mr-0.5 text-yellow-500">★</span>{relatedSkill.metadata.rating.toFixed(1)}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2 mt-1">{relatedSkill.metadata.description}</p>
                       </Link>
                     ))}
                   </div>

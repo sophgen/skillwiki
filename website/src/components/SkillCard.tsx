@@ -119,12 +119,17 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
         </Link>
         <button
           onClick={handleCopy}
-          className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-bold uppercase tracking-wide transition-all outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 ${copied
-            ? 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400'
+          className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-bold uppercase tracking-wide transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 flex items-center justify-center gap-1.5 ${copied
+            ? 'bg-emerald-50 dark:bg-emerald-900/40 border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 transform scale-105'
             : 'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
             }`}
         >
-          {copied ? '✓ Copied' : 'Copy Prompt'}
+          {copied ? (
+            <span className="flex items-center gap-1 scale-110 transition-transform duration-300">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+              Copied
+            </span>
+          ) : 'Copy Prompt'}
         </button>
       </div>
     </div>

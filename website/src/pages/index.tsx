@@ -69,9 +69,15 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
             <p className="text-lg lg:text-xl text-indigo-100 mb-6 max-w-2xl mx-auto leading-relaxed text-balance">
               Discover, learn, and integrate pre-built skills for AI agents across education, trading, workflow automation, and more.
             </p>
-            <p className="text-sm font-semibold text-purple-200 mb-10 tracking-wide uppercase">
-              Join {initialSkills.length}+ skills across {domains.length} domains
-            </p>
+            {domains.length > 0 ? (
+              <p className="text-sm font-semibold text-purple-200 mb-10 tracking-wide uppercase">
+                Join {initialSkills.length}+ skills across {domains.length} domains
+              </p>
+            ) : initialSkills.length > 0 ? (
+              <p className="text-sm font-semibold text-purple-200 mb-10 tracking-wide uppercase">
+                Join {initialSkills.length}+ skills
+              </p>
+            ) : null}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a href="/integrate" className="w-full sm:w-auto px-8 py-3.5 bg-white text-indigo-900 rounded-xl font-bold text-sm shadow-lg shadow-white/10 hover:bg-indigo-50 hover:-translate-y-0.5 transition-all outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600">
                 Start Integrating
@@ -80,7 +86,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                 onClick={() => {
                   document.getElementById('browse')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-800/40 text-white border border-indigo-400/30 rounded-xl font-bold text-sm shadow-sm hover:bg-indigo-700/50 hover:border-indigo-400/50 transition-all backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600"
+                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-800/60 text-white border border-indigo-400/60 rounded-xl font-bold text-sm shadow-sm hover:bg-indigo-700/80 hover:border-indigo-300/80 transition-all backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600 hover:-translate-y-0.5"
               >
                 Browse Skills
               </button>
@@ -103,10 +109,15 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                     className={`group bg-gradient-to-b from-white to-zinc-50/50 dark:from-zinc-900 dark:to-zinc-900/50 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-soft hover:shadow-float hover:-translate-y-1 hover:border-brand-500/30 dark:hover:border-brand-500/50 transition-all duration-300 animate-fade-in-up`}
                     style={{ animationDelay: `${200 + i * 100}ms` }}
                   >
-                    <div className="w-12 h-12 bg-brand-50 dark:bg-brand-500/10 rounded-xl flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
-                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+                    <div className="w-12 h-12 bg-brand-50 dark:bg-brand-500/10 rounded-xl flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 text-2xl">
+                      {(() => {
+                        const d = skill.metadata.domain?.toLowerCase();
+                        if (d === 'automation') return '⚡';
+                        if (d === 'education') return '🎓';
+                        if (d === 'trading') return '📈';
+                        if (d === 'development') return '💻';
+                        return '🔧';
+                      })()}
                     </div>
                     <h3 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                       {skill.metadata.name}
@@ -160,7 +171,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                   onSortChange={(sort) =>
                     setSortBy(sort as 'recent' | 'rated' | 'popular' | 'alphabetical')
                   }
-                  gridCols="lg:grid-cols-2"
+                  gridCols="lg:grid-cols-3"
                 />
               </div>
             </div>

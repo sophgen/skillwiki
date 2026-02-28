@@ -20,17 +20,8 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  color: #18181b;
-  /* zinc-900 */
-  background-color: #f9fafb;
-  /* zinc-50 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.dark body {
-  color: #fafafa;
-  background-color: #09090b;
 }
 
 /* Custom Selection */

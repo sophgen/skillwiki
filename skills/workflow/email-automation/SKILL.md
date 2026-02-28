@@ -1,25 +1,15 @@
 ---
 name: email-automation
-description: Automate email workflows, send bulk messages, process templates, and schedule emails. Integrate with Gmail, Outlook, SMTP, and more.
+description: Automates email workflows including sending bulk messages, processing templates with variable substitution, and scheduling emails. Supports Gmail, Outlook, and SMTP. Use when a user wants to send automated emails, create email templates, schedule newsletters, set up notification systems, or build customer onboarding email flows.
 license: MIT
-compatibility: generic
 metadata:
   author: Carol Johnson
   difficulty: intermediate
-  rating: 4.5
+  rating: "4.5"
   domain: workflow
-  useCases:
-    - Email automation
-    - Bulk messaging campaigns
-    - Workflow scheduling
-    - Template processing
-    - Newsletter distribution
-  featured: false
-  tags:
-    - email
-    - automation
-    - workflow
-    - messaging
+  use-cases: "email-automation, bulk-messaging-campaigns, workflow-scheduling, template-processing, newsletter-distribution"
+  featured: "false"
+  tags: "email, automation, workflow, messaging"
 ---
 
 # Email Automation Skill

@@ -18,6 +18,27 @@ function flattenMetadata(data) {
     Object.assign(flat, data.metadata);
     delete flat.metadata;
   }
+
+  // Coerce string values from quoted SKILL.md frontmatter to proper types
+  if (typeof flat.rating === 'string') {
+    const parsed = parseFloat(flat.rating);
+    flat.rating = isNaN(parsed) ? undefined : parsed;
+  }
+  if (typeof flat.featured === 'string') {
+    flat.featured = flat.featured.toLowerCase() === 'true';
+  }
+  if (typeof flat.tags === 'string') {
+    flat.tags = flat.tags.split(',').map((t) => t.trim()).filter(Boolean);
+  }
+  const useCasesRaw = flat['use-cases'] ?? flat.useCases;
+  if (typeof useCasesRaw === 'string') {
+    flat.useCases = useCasesRaw.split(',').map((t) => t.trim()).filter(Boolean);
+    delete flat['use-cases'];
+  } else if (Array.isArray(flat['use-cases'])) {
+    flat.useCases = flat['use-cases'];
+    delete flat['use-cases'];
+  }
+
   return flat;
 }
 

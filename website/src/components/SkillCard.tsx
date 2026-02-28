@@ -79,7 +79,7 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
           {rating && (
             <span className="flex items-center px-2 py-0.5 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 rounded text-[11px] font-bold">
               <span className="mr-1 text-yellow-500 text-xs">★</span>
-              <span>{rating.toFixed(1)}</span>
+              <span>{Number(rating).toFixed(1)}</span>
             </span>
           )}
         </div>

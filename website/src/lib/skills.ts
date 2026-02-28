@@ -13,6 +13,28 @@ function flattenMetadata(data: Record<string, unknown>): SkillMetadata {
     Object.assign(flat, data.metadata as Record<string, unknown>);
     delete flat.metadata;
   }
+
+  // Coerce string values from quoted SKILL.md frontmatter to proper types
+  if (typeof flat.rating === 'string') {
+    const parsed = parseFloat(flat.rating as string);
+    flat.rating = isNaN(parsed) ? undefined : parsed;
+  }
+  if (typeof flat.featured === 'string') {
+    flat.featured = (flat.featured as string).toLowerCase() === 'true';
+  }
+  if (typeof flat.tags === 'string') {
+    flat.tags = (flat.tags as string).split(',').map((t) => t.trim()).filter(Boolean);
+  }
+  const useCasesRaw = flat['use-cases'] ?? flat.useCases;
+  if (typeof useCasesRaw === 'string') {
+    const arr = (useCasesRaw as string).split(',').map((t) => t.trim()).filter(Boolean);
+    flat.useCases = arr;
+    delete flat['use-cases'];
+  } else if (Array.isArray(flat['use-cases'])) {
+    flat.useCases = flat['use-cases'] as string[];
+    delete flat['use-cases'];
+  }
+
   return flat as SkillMetadata;
 }
 

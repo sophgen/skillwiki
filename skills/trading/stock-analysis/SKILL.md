@@ -1,24 +1,15 @@
 ---
 name: stock-analysis
-description: Analyze stock market data, calculate technical indicators, and generate trading signals. Professional-grade analysis tool for traders and investors.
+description: Analyzes stock market data, calculates technical indicators (SMA, EMA, RSI, MACD), and generates trading signals. Use when a user wants to analyze stocks, evaluate market trends, calculate moving averages, identify support/resistance levels, or build trading strategies.
 license: MIT
-compatibility: generic
 metadata:
   author: Bob Smith
   difficulty: advanced
-  rating: 4.6
+  rating: "4.6"
   domain: trading
-  useCases:
-    - Stock market analysis
-    - Technical indicator calculation
-    - Trading signal generation
-    - Portfolio analysis
-  featured: true
-  tags:
-    - stocks
-    - trading
-    - finance
-    - technical-analysis
+  use-cases: "stock-market-analysis, technical-indicator-calculation, trading-signal-generation, portfolio-analysis"
+  featured: "true"
+  tags: "stocks, trading, finance, technical-analysis"
 ---
 
 # Stock Analysis Skill

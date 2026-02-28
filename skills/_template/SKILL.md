@@ -4,28 +4,28 @@
 # Place under a valid domain folder: automation | education | trading | development | workflow | general
 name: your-skill-name-here
 
-# Required: 1-1024 characters
-description: A clear, concise description of what this skill does and who it's for.
+# Required: 1-1024 characters. Describe what the skill does AND when to use it.
+# Include specific keywords that help agents identify relevant tasks.
+description: A clear description of what this skill does. Use when a user wants to [specific task], needs help with [topic], or asks about [keywords].
 
-# Optional: Recommended per agentskills.io spec
+# Optional: License name or reference to a bundled license file.
 license: MIT
 
-# Optional: e.g. "cursor", "claude-code", "generic"
-compatibility: generic
+# Optional: Only include if your skill has specific environment requirements.
+# Examples: "Requires git, docker, jq" or "Designed for Claude Code"
+# Omit this field if the skill works in any environment.
+# compatibility: Requires python3 and pip
 
-# Optional catalog fields (nested under metadata)
+# Optional: A map of string keys to string values (per agentskills.io spec).
+# All values must be strings — use quotes around numbers, booleans, and lists.
 metadata:
   author: Your Name
   difficulty: beginner  # beginner | intermediate | advanced
-  rating: 4.0
+  rating: "4.0"
   domain: education     # automation | education | trading | development | workflow | general
-  useCases:
-    - Use case 1
-    - Use case 2
-  featured: false
-  tags:
-    - tag1
-    - tag2
+  use-cases: "use-case-1, use-case-2"
+  featured: "false"
+  tags: "tag1, tag2"
 ---
 
 # Skill Title

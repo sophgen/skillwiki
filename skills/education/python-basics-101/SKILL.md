@@ -1,23 +1,15 @@
 ---
 name: python-basics-101
-description: Learn fundamental Python concepts including variables, loops, functions, and data structures. Perfect for beginners starting their programming journey.
+description: Teaches fundamental Python programming concepts including variables, data types, loops, functions, and data structures. Use when a user wants to learn Python from scratch, needs help with basic Python syntax, is preparing for coding interviews, or asks about beginner programming topics.
 license: MIT
-compatibility: generic
 metadata:
   author: Jane Doe
   difficulty: beginner
-  rating: 4.8
+  rating: "4.8"
   domain: education
-  useCases:
-    - Learn programming
-    - Interview preparation
-    - Build Python foundations
-  featured: true
-  tags:
-    - python
-    - programming
-    - beginners
-    - education
+  use-cases: "learn-programming, interview-preparation, build-python-foundations"
+  featured: "true"
+  tags: "python, programming, beginners, education"
 ---
 
 # Python Basics 101

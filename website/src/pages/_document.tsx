@@ -6,8 +6,9 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="description" content="SkillWiki: Agent Skills Marketplace" />
+
       </Head>
-      <body>
+      <body className="antialiased text-zinc-800 bg-zinc-50 selection:bg-indigo-500 selection:text-white">
         <Main />
         <NextScript />
       </body>

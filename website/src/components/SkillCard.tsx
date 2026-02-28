@@ -4,15 +4,36 @@ import Link from 'next/link';
 
 interface SkillCardProps {
   skill: Skill;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
-export default function SkillCard({ skill }: SkillCardProps) {
+export default function SkillCard({ skill, style, className = '' }: SkillCardProps) {
   const [copied, setCopied] = useState(false);
-  const { name, description, domain, difficulty, rating, author, tags } = skill.metadata;
+  const { name: rawName, description, domain, difficulty, rating, author, tags } = skill.metadata;
+
+  // Format slug-like names to human readable
+  const name = rawName.includes('-') && !rawName.includes(' ')
+    ? rawName.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    : rawName;
+
+  const domainConfig: Record<string, { color: string, icon: string, border: string }> = {
+    automation: { color: 'text-blue-600 dark:text-blue-400', icon: '⚡', border: 'border-t-blue-500' },
+    education: { color: 'text-green-600 dark:text-green-400', icon: '🎓', border: 'border-t-green-500' },
+    trading: { color: 'text-amber-600 dark:text-amber-400', icon: '📈', border: 'border-t-amber-500' },
+    development: { color: 'text-purple-600 dark:text-purple-400', icon: '💻', border: 'border-t-purple-500' },
+    general: { color: 'text-zinc-600 dark:text-zinc-400', icon: '🔧', border: 'border-t-zinc-500' }
+  };
+
+  const getDomainConfig = (d: string) => {
+    const key = d.toLowerCase();
+    return domainConfig[key] || domainConfig.general;
+  };
+
+  const dConfig = domain ? getDomainConfig(domain) : domainConfig.general;
 
   const handleCopy = async () => {
     try {
-      // For now, copy the markdown content
       const content = `---\nname: ${skill.id}\ndescription: ${description}\n---\n\n${skill.content}`;
       await navigator.clipboard.writeText(content);
       setCopied(true);
@@ -22,60 +43,66 @@ export default function SkillCard({ skill }: SkillCardProps) {
     }
   };
 
-  const difficultyColors: Record<string, string> = {
-    beginner: 'bg-green-100 text-green-800',
-    intermediate: 'bg-yellow-100 text-yellow-800',
-    advanced: 'bg-red-100 text-red-800',
+  const difficultyStyles: Record<string, string> = {
+    beginner: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50',
+    intermediate: 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border-amber-200/50 dark:border-amber-800/50',
+    advanced: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border-rose-200/50 dark:border-rose-800/50',
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 p-6 flex flex-col h-full">
-      {/* Domain badge */}
+    <div
+      className={`group bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 border-t-4 ${dConfig.border} p-8 flex flex-col h-full hover:shadow-float shadow-soft hover:border-brand-500/30 dark:hover:border-brand-500/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden ${className}`}
+      style={style}
+    >
+      {/* Decorative gradient blob */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-brand-500/5 dark:bg-brand-500/10 rounded-full blur-3xl group-hover:bg-brand-500/10 dark:group-hover:bg-brand-500/20 transition-colors pointer-events-none" />
+
+      {/* Domain badge with icon */}
       {domain && (
-        <div className="mb-2">
-          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+        <div className="mb-5 flex items-center">
+          <span className={`inline-flex items-center px-2.5 py-1 bg-zinc-50 dark:bg-zinc-800 ${dConfig.color} rounded-md text-[10px] font-bold uppercase tracking-widest border border-zinc-200 dark:border-zinc-700 shadow-sm gap-1.5`}>
+            <span className="text-xs">{dConfig.icon}</span>
             {domain}
           </span>
         </div>
       )}
 
       {/* Name and description */}
-      <Link href={`/skills/${skill.id}`}>
-        <h3 className="text-lg font-bold text-gray-900 hover:text-blue-600 cursor-pointer mb-2">
+      <Link href={`/skills/${skill.id}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-lg -m-1 p-1 mb-2">
+        <h3 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-tight">
           {name}
         </h3>
       </Link>
-      <p className="text-gray-600 text-sm mb-4 flex-grow">
-        {description.substring(0, 120)}...
+      <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-8 flex-grow leading-relaxed">
+        {description.substring(0, 120)}{description.length > 120 ? '...' : ''}
       </p>
 
       {/* Metadata row */}
-      <div className="flex items-center justify-between text-sm mb-4 flex-wrap gap-2">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between text-sm mb-5 flex-wrap gap-2">
+        <div className="flex items-center gap-2">
           {difficulty && (
             <span
-              className={`px-2 py-1 rounded text-xs font-medium ${
-                difficultyColors[difficulty] || 'bg-gray-100 text-gray-800'
-              }`}
+              className={`px-2 py-0.5 rounded text-[11px] font-bold tracking-wide border ${difficultyStyles[difficulty] || 'bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700'
+                }`}
             >
-              {difficulty}
+              {difficulty.toUpperCase()}
             </span>
           )}
           {rating && (
-            <span className="flex items-center">
-              <span className="text-yellow-400">★</span>
-              <span className="ml-1 text-gray-700">{rating}</span>
+            <span className="flex items-center px-2 py-0.5 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 rounded text-[11px] font-bold">
+              <span className="mr-1 text-yellow-500 text-xs">★</span>
+              <span>{rating.toFixed(1)}</span>
             </span>
           )}
         </div>
-        {author && <span className="text-gray-500">by {author}</span>}
+        {author && <span className="text-zinc-400 dark:text-zinc-500 text-[11px] font-semibold">BY {author.toUpperCase()}</span>}
       </div>
 
       {/* Tags */}
       {tags && tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tags.slice(0, 2).map((tag) => (
-            <span key={tag} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+        <div className="flex flex-wrap gap-1.5 mb-6">
+          {tags.slice(0, 3).map((tag) => (
+            <span key={tag} className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
               #{tag}
             </span>
           ))}
@@ -83,19 +110,22 @@ export default function SkillCard({ skill }: SkillCardProps) {
       )}
 
       {/* Action buttons */}
-      <div className="flex space-x-2 pt-4 border-t border-gray-200">
-        <button
-          onClick={handleCopy}
-          className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition"
-        >
-          {copied ? '✓ Copied' : 'Copy'}
-        </button>
+      <div className="flex gap-3 mt-auto pt-5 border-t border-zinc-100 dark:border-zinc-800 relative z-10">
         <Link
           href={`/skills/${skill.id}`}
-          className="flex-1 px-4 py-2 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 text-sm font-medium transition text-center"
+          className="flex-1 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded-xl hover:bg-brand-700 dark:hover:bg-brand-600 hover:shadow-md text-xs font-bold uppercase tracking-wide transition-all text-center outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1"
         >
-          View
+          View Details
         </Link>
+        <button
+          onClick={handleCopy}
+          className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-bold uppercase tracking-wide transition-all outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 ${copied
+            ? 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400'
+            : 'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
+            }`}
+        >
+          {copied ? '✓ Copied' : 'Copy Prompt'}
+        </button>
       </div>
     </div>
   );

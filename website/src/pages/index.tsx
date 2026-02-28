@@ -21,15 +21,14 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
     query: '',
   });
   const [sortBy, setSortBy] = useState<'recent' | 'rated' | 'popular' | 'alphabetical'>('recent');
+  const [showFilters, setShowFilters] = useState(false);
 
-  // Filter and sort skills
   const filteredSkills = useMemo(() => {
     let result = searchSkills(initialSkills, filters);
     result = sortSkills(result, sortBy);
     return result;
   }, [filters, sortBy, initialSkills]);
 
-  // Featured skills
   const featuredSkills = initialSkills
     .filter((skill) => skill.metadata.featured)
     .slice(0, 3);
@@ -37,47 +36,90 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
   return (
     <>
       <Head>
-        <title>SkillWiki - Agent Skills Marketplace</title>
+        <title>SkillWiki — Agent Skills Marketplace</title>
         <meta name="description" content="Discover and integrate pre-built agent skills" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <Header onSearch={(query) => setFilters({ ...filters, query })} />
 
-      <main className="bg-gray-50 min-h-screen">
+      <main className="bg-zinc-50 dark:bg-zinc-950 min-h-screen relative overflow-hidden font-sans transition-colors duration-300">
+        {/* Background Patterns */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" style={{ backgroundPosition: 'center top' }} />
+
         {/* Hero section */}
-        <section className="bg-white border-b border-gray-200 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Agent Skills Marketplace</h1>
-            <p className="text-lg text-gray-600 mb-6">
-              Discover, learn, and integrate pre-built skills for AI agents across education,
-              trading, workflow automation, and more.
+        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-indigo-900 bg-gradient-to-br from-indigo-600 via-violet-700 to-purple-800">
+          {/* Subtle mesh/pattern overlay */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxwYXRoIGQ9Ik0wIDBoOHY4SDB6IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] mix-blend-overlay"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-30 pointer-events-none animate-subtle-pulse">
+            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent blur-3xl rounded-full mix-blend-overlay" />
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-8 shadow-sm backdrop-blur-sm">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[11px] font-bold tracking-widest text-indigo-100 uppercase">SkillWiki Beta is Live</span>
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight text-balance mx-auto drop-shadow-sm">
+              Supercharge your <br className="hidden md:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-purple-200">AI Agents</span> Instantly
+            </h1>
+            <p className="text-lg lg:text-xl text-indigo-100 mb-6 max-w-2xl mx-auto leading-relaxed text-balance">
+              Discover, learn, and integrate pre-built skills for AI agents across education, trading, workflow automation, and more.
             </p>
+            <p className="text-sm font-semibold text-purple-200 mb-10 tracking-wide uppercase">
+              Join {initialSkills.length}+ skills across {domains.length} domains
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="/integrate" className="w-full sm:w-auto px-8 py-3.5 bg-white text-indigo-900 rounded-xl font-bold text-sm shadow-lg shadow-white/10 hover:bg-indigo-50 hover:-translate-y-0.5 transition-all outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600">
+                Start Integrating
+              </a>
+              <button
+                onClick={() => {
+                  document.getElementById('browse')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-800/40 text-white border border-indigo-400/30 rounded-xl font-bold text-sm shadow-sm hover:bg-indigo-700/50 hover:border-indigo-400/50 transition-all backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600"
+              >
+                Browse Skills
+              </button>
+            </div>
           </div>
         </section>
 
         {/* Featured section */}
         {featuredSkills.length > 0 && (
-          <section className="bg-white border-b border-gray-200 py-12">
+          <section className="bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-900 py-20 relative z-10 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Skills</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {featuredSkills.map((skill) => (
+              <div className="flex items-center justify-between mb-10 animate-fade-in-up animated-delay-100">
+                <h2 className="text-3xl font-display font-bold text-zinc-900 dark:text-zinc-50 tracking-tight">Featured Skills</h2>
+                <span className="text-sm font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-widest hidden sm:block">Curated</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                {featuredSkills.map((skill, i) => (
                   <div
                     key={skill.id}
-                    className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200"
+                    className={`group bg-gradient-to-b from-white to-zinc-50/50 dark:from-zinc-900 dark:to-zinc-900/50 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-soft hover:shadow-float hover:-translate-y-1 hover:border-brand-500/30 dark:hover:border-brand-500/50 transition-all duration-300 animate-fade-in-up`}
+                    style={{ animationDelay: `${200 + i * 100}ms` }}
                   >
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                    <div className="w-12 h-12 bg-brand-50 dark:bg-brand-500/10 rounded-xl flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                       {skill.metadata.name}
                     </h3>
-                    <p className="text-gray-700 text-sm mb-4">
-                      {skill.metadata.description}
+                    <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-6 leading-relaxed">
+                      {skill.metadata.description.substring(0, 100)}{skill.metadata.description.length > 100 ? '...' : ''}
                     </p>
                     <a
                       href={`/skills/${skill.id}`}
-                      className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                      className="inline-flex items-center text-brand-600 hover:text-brand-700 font-bold text-sm uppercase tracking-wide outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded px-1 -mx-1"
                     >
-                      Learn more →
+                      Learn more
+                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </a>
                   </div>
                 ))}
@@ -87,22 +129,38 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
         )}
 
         {/* Browse section */}
-        <section className="py-12">
+        <section id="browse" className="py-24 relative z-10 scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex gap-8">
-              <FilterSidebar
-                domains={domains}
-                difficulties={difficulties}
-                filters={filters}
-                onFiltersChange={setFilters}
-              />
-              <div className="flex-1">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <div className="flex flex-col lg:hidden">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl font-bold text-sm text-zinc-700 dark:text-zinc-300 shadow-sm hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-colors"
+                >
+                  <svg className="w-5 h-5 text-zinc-500 dark:text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  {showFilters ? 'Hide Filters' : 'Show Filters'}
+                </button>
+              </div>
+
+              <div className={`lg:w-1/4 ${showFilters ? 'block' : 'hidden lg:block'}`}>
+                <FilterSidebar
+                  skills={initialSkills}
+                  domains={domains}
+                  difficulties={difficulties}
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                />
+              </div>
+              <div className="flex-1 min-w-0">
                 <SkillGrid
                   skills={filteredSkills}
                   sortBy={sortBy}
                   onSortChange={(sort) =>
                     setSortBy(sort as 'recent' | 'rated' | 'popular' | 'alphabetical')
                   }
+                  gridCols="lg:grid-cols-2"
                 />
               </div>
             </div>

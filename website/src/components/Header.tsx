@@ -1,19 +1,26 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
+import { Skill } from '../lib/types';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
+  skills?: Skill[];
 }
 
-export default function Header({ onSearch }: HeaderProps) {
+export default function Header({ onSearch, skills = [] }: HeaderProps) {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const isHome = router.pathname === '/';
+  const isDarkContext = isHome && !scrolled;
 
   useEffect(() => {
     setMounted(true);
@@ -24,16 +31,41 @@ export default function Header({ onSearch }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsFocused(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
     onSearch?.(value);
   };
 
+  const getFilteredSkills = () => {
+    if (!query) return [];
+    const q = query.toLowerCase();
+    return skills.filter(skill =>
+      skill.metadata.name.toLowerCase().includes(q) ||
+      skill.metadata.domain?.toLowerCase().includes(q) ||
+      skill.metadata.tags?.some(tag => tag.toLowerCase().includes(q))
+    ).slice(0, 5);
+  };
+
+  const filteredSkills = getFilteredSkills();
+  const showDropdown = isFocused && query.length > 0 && skills.length > 0;
+
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${scrolled
-        ? 'bg-zinc-50/80 dark:bg-zinc-950/70 backdrop-blur-md border-indigo-100/50 dark:border-zinc-800 shadow-soft py-3'
+        ? 'bg-zinc-50/80 dark:bg-black/50 backdrop-blur-md border-indigo-100/50 dark:border-white/10 shadow-sm dark:shadow-soft py-3'
         : 'bg-transparent border-transparent py-5'
         }`}
     >
@@ -48,13 +80,18 @@ export default function Header({ onSearch }: HeaderProps) {
               </svg>
             </div>
             <div className="flex flex-col">
-              <h1 className="text-xl font-display font-bold text-zinc-900 dark:text-white leading-none tracking-tight group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">SkillWiki</h1>
+              <h1 className={`text-xl font-display font-bold leading-none tracking-tight transition-colors ${isDarkContext
+                ? 'text-white group-hover:text-brand-400'
+                : 'text-zinc-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400'
+                }`}>
+                SkillWiki
+              </h1>
               <span className="text-[10px] uppercase font-bold tracking-widest text-brand-500 mt-1">Agent Skills</span>
             </div>
           </Link>
 
           {/* Search bar */}
-          <div className="flex-1 max-w-lg mx-8 group relative hidden md:block">
+          <div className="flex-1 max-w-lg mx-8 group relative hidden md:block" ref={searchRef}>
             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
               <svg className="h-5 w-5 text-zinc-400 group-focus-within:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -65,17 +102,56 @@ export default function Header({ onSearch }: HeaderProps) {
               placeholder="Search skills by name, tag, or domain..."
               value={query}
               onChange={handleSearchChange}
+              onFocus={() => setIsFocused(true)}
               className="w-full pl-11 pr-10 py-2 bg-white/60 dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800/80 rounded-full focus:bg-white dark:focus:bg-zinc-900 focus:border-brand-500 dark:focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:focus:ring-brand-500/20 text-sm font-medium transition-all outline-none text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 shadow-sm"
             />
             {query && (
               <button
                 onClick={() => { setQuery(''); onSearch?.(''); }}
                 className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors"
+                aria-label="Clear search"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
+            )}
+
+            {showDropdown && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl overflow-hidden z-50 animate-fade-in-up">
+                {filteredSkills.length > 0 ? (
+                  <ul className="max-h-80 overflow-y-auto py-2 divide-y divide-zinc-100 dark:divide-zinc-800/50">
+                    {filteredSkills.map((skill) => (
+                      <li key={skill.id}>
+                        <Link
+                          href={`/skills/${skill.id}`}
+                          onClick={() => {
+                            setIsFocused(false);
+                            if (!isHome) setQuery('');
+                          }}
+                          className="flex flex-col px-4 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-colors outline-none focus:bg-zinc-50 dark:focus:bg-zinc-800/80"
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="font-bold text-sm text-zinc-900 dark:text-zinc-100">{skill.metadata.name}</span>
+                            {skill.metadata.domain && (
+                              <span className="text-[10px] uppercase tracking-wider font-semibold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-2 py-0.5 rounded-full">
+                                {skill.metadata.domain}
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-1">
+                            {skill.metadata.description}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="px-4 py-6 text-center text-zinc-500 dark:text-zinc-400 text-sm">
+                    No skills found for "{query}"
+                  </div>
+                )}
+              </div>
             )}
           </div>
 
@@ -167,6 +243,39 @@ export default function Header({ onSearch }: HeaderProps) {
               onChange={handleSearchChange}
               className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm"
             />
+
+            {/* Mobile Dropdown */}
+            {query && skills.length > 0 && (
+              <div className="mt-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-md overflow-hidden animate-fade-in-up">
+                {filteredSkills.length > 0 ? (
+                  <ul className="max-h-60 overflow-y-auto py-1 divide-y divide-zinc-100 dark:divide-zinc-800/50">
+                    {filteredSkills.map((skill) => (
+                      <li key={skill.id}>
+                        <Link
+                          href={`/skills/${skill.id}`}
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            if (!isHome) setQuery('');
+                          }}
+                          className="flex flex-col px-3 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-colors"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-sm text-zinc-900 dark:text-zinc-100">{skill.metadata.name}</span>
+                          </div>
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-1 mt-0.5">
+                            {skill.metadata.description}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="px-3 py-4 text-center text-zinc-500 dark:text-zinc-400 text-xs">
+                    No skills found for "{query}"
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <Link
             href="/"

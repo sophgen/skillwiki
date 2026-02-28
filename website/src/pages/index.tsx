@@ -41,52 +41,52 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <Header onSearch={(query) => setFilters({ ...filters, query })} />
+      <Header onSearch={(query) => setFilters({ ...filters, query })} skills={initialSkills} />
 
       <main className="bg-zinc-50 dark:bg-zinc-950 min-h-screen relative overflow-hidden font-sans transition-colors duration-300">
         {/* Background Patterns */}
         <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" style={{ backgroundPosition: 'center top' }} />
 
         {/* Hero section */}
-        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-indigo-900 bg-gradient-to-br from-indigo-600 via-violet-700 to-purple-800">
+        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-zinc-800 bg-zinc-950 dark:bg-zinc-950">
           {/* Subtle mesh/pattern overlay */}
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxwYXRoIGQ9Ik0wIDBoOHY4SDB6IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] mix-blend-overlay"></div>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-30 pointer-events-none animate-subtle-pulse">
-            <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent blur-3xl rounded-full mix-blend-overlay" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none animate-subtle-pulse">
+            <div className="absolute inset-0 bg-gradient-to-b from-brand-600 to-transparent blur-[100px] rounded-full mix-blend-screen" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 mb-8 shadow-sm backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 mb-8 shadow-sm backdrop-blur-sm">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[11px] font-bold tracking-widest text-indigo-100 uppercase">SkillWiki Beta is Live</span>
+              <span className="text-[11px] font-bold tracking-widest text-zinc-300 uppercase">SkillWiki Beta is Live</span>
             </div>
             <h1 className="text-5xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight text-balance mx-auto drop-shadow-sm">
               Supercharge your <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-purple-200">AI Agents</span> Instantly
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-cyan-200">AI Agents</span> Instantly
             </h1>
-            <p className="text-lg lg:text-xl text-indigo-100 mb-6 max-w-2xl mx-auto leading-relaxed text-balance">
+            <p className="text-lg lg:text-xl text-zinc-400 mb-6 max-w-2xl mx-auto leading-relaxed text-balance">
               Discover, learn, and integrate pre-built skills for AI agents across education, trading, workflow automation, and more.
             </p>
             {domains.length > 0 ? (
-              <p className="text-sm font-semibold text-purple-200 mb-10 tracking-wide uppercase">
+              <p className="text-sm font-semibold text-brand-300 mb-10 tracking-wide uppercase">
                 Join {initialSkills.length}+ skills across {domains.length} domains
               </p>
             ) : initialSkills.length > 0 ? (
-              <p className="text-sm font-semibold text-purple-200 mb-10 tracking-wide uppercase">
+              <p className="text-sm font-semibold text-brand-300 mb-10 tracking-wide uppercase">
                 Join {initialSkills.length}+ skills
               </p>
             ) : null}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="/integrate" className="w-full sm:w-auto px-8 py-3.5 bg-white text-indigo-900 rounded-xl font-bold text-sm shadow-lg shadow-white/10 hover:bg-indigo-50 hover:-translate-y-0.5 transition-all outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600">
+              <a href="/integrate" className="w-full sm:w-auto px-8 py-3.5 bg-brand-500 text-white rounded-xl font-mono text-sm shadow-lg shadow-brand-500/20 hover:bg-brand-600 hover:-translate-y-0.5 transition-all outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
                 Start Integrating
               </a>
               <button
                 onClick={() => {
                   document.getElementById('browse')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="w-full sm:w-auto px-8 py-3.5 bg-indigo-800/60 text-white border border-indigo-400/60 rounded-xl font-bold text-sm shadow-sm hover:bg-indigo-700/80 hover:border-indigo-300/80 transition-all backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-600 hover:-translate-y-0.5"
+                className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-zinc-300 border border-zinc-700/80 rounded-xl font-mono text-sm shadow-sm hover:text-white hover:bg-zinc-800/80 hover:border-zinc-600/80 transition-all backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 hover:-translate-y-0.5"
               >
                 Browse Skills
               </button>
@@ -106,7 +106,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                 {featuredSkills.map((skill, i) => (
                   <div
                     key={skill.id}
-                    className={`group bg-gradient-to-b from-white to-zinc-50/50 dark:from-zinc-900 dark:to-zinc-900/50 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-soft hover:shadow-float hover:-translate-y-1 hover:border-brand-500/30 dark:hover:border-brand-500/50 transition-all duration-300 animate-fade-in-up`}
+                    className={`group bg-gradient-to-b from-white to-zinc-50/50 dark:from-zinc-900 dark:to-zinc-900/50 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-soft hover:shadow-md dark:hover:shadow-float hover:-translate-y-1 hover:border-brand-500/30 dark:hover:border-brand-500/50 transition-all duration-300 animate-fade-in-up`}
                     style={{ animationDelay: `${200 + i * 100}ms` }}
                   >
                     <div className="w-12 h-12 bg-brand-50 dark:bg-brand-500/10 rounded-xl flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 text-2xl">

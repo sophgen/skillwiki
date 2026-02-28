@@ -51,7 +51,7 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
 
   return (
     <div
-      className={`group bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 border-t-4 ${dConfig.border} p-8 flex flex-col h-full hover:shadow-float shadow-soft hover:border-brand-500/30 dark:hover:border-brand-500/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden ${className}`}
+      className={`group bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200/80 dark:border-zinc-800 border-t-4 ${dConfig.border} p-8 flex flex-col h-full hover:shadow-glow shadow-sm shadow-zinc-200/50 dark:shadow-soft hover:border-brand-500/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden ${className}`}
       style={style}
     >
       {/* Decorative gradient blob */}
@@ -113,15 +113,15 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
       <div className="flex gap-3 mt-auto pt-5 border-t border-zinc-100 dark:border-zinc-800 relative z-10">
         <Link
           href={`/skills/${skill.id}`}
-          className="flex-1 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded-xl hover:bg-brand-700 dark:hover:bg-brand-600 hover:shadow-md text-xs font-bold uppercase tracking-wide transition-all text-center outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1"
+          className="flex-1 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white rounded-xl hover:bg-brand-700 dark:hover:bg-brand-600 hover:shadow-glow text-xs font-mono font-bold uppercase tracking-wide transition-all text-center outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1"
         >
           View Details
         </Link>
         <button
           onClick={handleCopy}
-          className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-bold uppercase tracking-wide transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 flex items-center justify-center gap-1.5 ${copied
+          className={`flex-1 px-4 py-2.5 rounded-xl border text-xs font-mono font-bold uppercase tracking-wide transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 flex items-center justify-center gap-1.5 ${copied
             ? 'bg-emerald-50 dark:bg-emerald-900/40 border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 transform scale-105'
-            : 'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
+            : 'bg-white dark:bg-transparent border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-white/5 hover:border-zinc-300 dark:hover:border-zinc-600 dark:hover:text-white'
             }`}
         >
           {copied ? (

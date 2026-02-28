@@ -201,7 +201,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
             {/* Main content */}
             <div className="lg:w-2/3">
-              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 lg:p-12 prose prose-zinc dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-brand-600 dark:prose-a:text-brand-400 hover:prose-a:text-brand-700 dark:hover:prose-a:text-brand-300 max-w-none prose-pre:bg-[#282c34] prose-pre:shadow-inner prose-pre:overflow-x-auto prose-img:rounded-xl">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 lg:p-12 prose prose-zinc dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-brand-600 dark:prose-a:text-brand-400 hover:prose-a:text-brand-700 dark:hover:prose-a:text-brand-300 max-w-none prose-pre:bg-[#282c34] prose-pre:shadow-inner prose-pre:overflow-x-auto prose-img:rounded-xl">
                 <div
                   className="markdown-body"
                   dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -213,7 +213,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
             <aside className="lg:w-1/3">
               {/* Tags */}
               {tags && tags.length > 0 && (
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 mb-8 transition-colors">
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 mb-8 transition-colors">
                   <h3 className="font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4 text-lg">Tags</h3>
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
@@ -230,7 +230,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
               {/* Related skills */}
               {relatedSkills.length > 0 && (
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 sticky top-28 transition-colors">
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 sticky top-28 transition-colors">
                   <h3 className="font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4 text-lg">Related Skills</h3>
                   <div className="space-y-4">
                     {relatedSkills.slice(0, 4).map((relatedSkill) => (

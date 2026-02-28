@@ -15,7 +15,7 @@ export default function Integrate() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl lg:text-5xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-8 tracking-tight">Integration Guide</h1>
 
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 md:p-12 space-y-10 transition-colors">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 md:p-12 space-y-10 transition-colors">
             {/* Overview */}
             <section>
               <h2 className="text-2xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4">

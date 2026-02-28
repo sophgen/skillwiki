@@ -38,7 +38,7 @@ export default function FilterSidebar({
   };
 
   return (
-    <aside className="w-full lg:w-72 bg-white dark:bg-zinc-900 rounded-3xl shadow-soft p-6 lg:p-8 border border-zinc-200/80 dark:border-zinc-800/80 h-fit sticky top-28 animate-fade-in-up animated-delay-100 overflow-hidden relative transition-colors duration-300">
+    <aside className="w-full lg:w-72 bg-white dark:bg-zinc-900 rounded-xl shadow-sm shadow-zinc-200/50 dark:shadow-soft p-6 lg:p-8 border border-zinc-200/80 dark:border-zinc-800 h-fit sticky top-28 animate-fade-in-up animated-delay-100 overflow-hidden relative transition-colors duration-300">
       <div className="flex items-center justify-between mb-8 relative z-10">
         <h2 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100">Filters</h2>
         {(filters.domains.length > 0 || filters.difficulties.length > 0 || filters.rating || filters.featured) && (

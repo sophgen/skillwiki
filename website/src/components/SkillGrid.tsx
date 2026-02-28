@@ -17,7 +17,7 @@ export default function SkillGrid({
   return (
     <div className="animate-fade-in-up">
       {/* Sort options */}
-      <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-soft transition-colors">
+      <div className="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-zinc-900 p-4 rounded-xl border border-zinc-200/80 dark:border-zinc-800 shadow-sm shadow-zinc-200/50 dark:shadow-soft transition-colors">
         <h2 className="text-lg font-display font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-3">
           All Skills
           <span className="bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 text-xs px-2.5 py-1 rounded-full border border-zinc-200 dark:border-zinc-700 font-sans font-bold">

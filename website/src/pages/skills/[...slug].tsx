@@ -327,7 +327,7 @@ export const getStaticProps: GetStaticProps<SkillDetailProps> = async ({ params 
   const allSkills = getAllSkills();
   const relatedSkills = allSkills
     .filter((s) => s.metadata.domain === skill.metadata.domain && s.id !== skillId)
-    .map(({ content, rawContent, ...rest }) => ({ ...rest, content: '', rawContent: undefined }));
+    .map(({ content, rawContent, ...rest }) => ({ ...rest, content: '' })); // omit rawContent (undefined not JSON-serializable)
 
   return {
     props: {

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "email-automation",
+    "metadata": {
+      "name": "email-automation",
+      "description": "Automate email workflows, send bulk messages, process templates, and schedule emails. Integrate with Gmail, Outlook, SMTP, and more.",
+      "metadata": {
+        "author": "Carol Johnson",
+        "difficulty": "intermediate",
+        "rating": 4.5,
+        "domain": "workflow",
+        "useCases": [
+          "Email automation",
+          "Bulk messaging campaigns",
+          "Workflow scheduling",
+          "Template processing",
+          "Newsletter distribution"
+        ],
+        "featured": false,
+        "tags": [
+          "email",
+          "automation",
+          "workflow",
+          "messaging"
+        ]
+      }
+    },
+    "contentPreview": "\n# Email Automation Skill\n\nAutomate your email workflows with templates, scheduling, and multi-provider support.\n\n## Features\n\n- Send emails programmatically (Gmail, Outlook, SMTP)\n- Template processi"
+  },
+  {
+    "id": "python-basics-101",
+    "metadata": {
+      "name": "python-basics-101",
+      "description": "Learn fundamental Python concepts including variables, loops, functions, and data structures. Perfect for beginners starting their programming journey.",
+      "metadata": {
+        "author": "Jane Doe",
+        "difficulty": "beginner",
+        "rating": 4.8,
+        "domain": "education",
+        "useCases": [
+          "Learn programming",
+          "Interview preparation",
+          "Build Python foundations"
+        ],
+        "featured": true,
+        "tags": [
+          "python",
+          "programming",
+          "beginners",
+          "education"
+        ]
+      }
+    },
+    "contentPreview": "\n# Python Basics 101\n\nLearn the fundamentals of Python programming with hands-on examples.\n\n## What You'll Learn\n\n- Variables and data types\n- Control flow (if/else, loops)\n- Functions and scope\n- Lis"
+  },
+  {
+    "id": "stock-analysis",
+    "metadata": {
+      "name": "stock-analysis",
+      "description": "Analyze stock market data, calculate technical indicators, and generate trading signals. Professional-grade analysis tool for traders and investors.",
+      "metadata": {
+        "author": "Bob Smith",
+        "difficulty": "advanced",
+        "rating": 4.6,
+        "domain": "trading",
+        "useCases": [
+          "Stock market analysis",
+          "Technical indicator calculation",
+          "Trading signal generation",
+          "Portfolio analysis"
+        ],
+        "featured": true,
+        "tags": [
+          "stocks",
+          "trading",
+          "finance",
+          "technical-analysis"
+        ]
+      }
+    },
+    "contentPreview": "\n# Stock Analysis Skill\n\nAdvanced stock market analysis and technical indicator calculations for traders.\n\n## Features\n\n- Real-time price data handling\n- Technical indicator calculations (SMA, EMA, RS"
+  }
+]

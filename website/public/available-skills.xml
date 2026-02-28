@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<available_skills>
+  <skill>
+    <name>email-automation</name>
+    <description>Automate email workflows, send bulk messages, process templates, and schedule emails. Integrate with Gmail, Outlook, SMTP, and more.</description>
+    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/email-automation/SKILL.md</location>
+  </skill>
+  <skill>
+    <name>python-basics-101</name>
+    <description>Learn fundamental Python concepts including variables, loops, functions, and data structures. Perfect for beginners starting their programming journey.</description>
+    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/python-basics-101/SKILL.md</location>
+  </skill>
+  <skill>
+    <name>stock-analysis</name>
+    <description>Analyze stock market data, calculate technical indicators, and generate trading signals. Professional-grade analysis tool for traders and investors.</description>
+    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/stock-analysis/SKILL.md</location>
+  </skill>
+</available_skills>

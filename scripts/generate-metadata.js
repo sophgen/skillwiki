@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const matter = require('gray-matter');
+
+// Resolve modules from website/node_modules since this script runs from root
+const matter = require(path.join(__dirname, '..', 'website', 'node_modules', 'gray-matter'));
 
 const skillsDir = path.join(__dirname, '..', 'skills');
 const outputDir = path.join(__dirname, '..', 'website', 'public');

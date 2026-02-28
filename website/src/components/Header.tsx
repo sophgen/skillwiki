@@ -103,7 +103,7 @@ export default function Header({ onSearch, skills = [] }: HeaderProps) {
               value={query}
               onChange={handleSearchChange}
               onFocus={() => setIsFocused(true)}
-              className="w-full pl-11 pr-10 py-2 bg-white/60 dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800/80 rounded-full focus:bg-white dark:focus:bg-zinc-900 focus:border-brand-500 dark:focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:focus:ring-brand-500/20 text-sm font-medium transition-all outline-none text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 shadow-sm"
+              className="w-full pl-11 pr-10 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full focus:bg-white dark:focus:bg-zinc-900 focus:border-brand-500 dark:focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:focus:ring-brand-500/20 text-sm font-medium transition-all outline-none text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700"
             />
             {query && (
               <button
@@ -241,7 +241,7 @@ export default function Header({ onSearch, skills = [] }: HeaderProps) {
               placeholder="Search skills..."
               value={query}
               onChange={handleSearchChange}
-              className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm"
+              className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm hover:border-zinc-300 dark:hover:border-zinc-700"
             />
 
             {/* Mobile Dropdown */}

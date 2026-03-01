@@ -8,6 +8,25 @@ description: >
   Also trigger for system design interview prep, architecture reviews, SOLID/DRY/KISS principles, and
   Gang of Four design patterns. If the user is comparing technologies, making infrastructure decisions,
   or asking how to scale a system, use this skill — even without the words "system design".
+domain: development
+difficulty: advanced
+author: SkillWiki
+tags:
+  - system-design
+  - architecture
+  - design-patterns
+  - scalability
+  - microservices
+  - databases
+  - api-design
+  - trade-offs
+  - infrastructure
+use-cases:
+  - Technology comparison & selection
+  - Architecture decision records
+  - System design interview prep
+  - Scalability analysis
+  - Design pattern guidance
 ---
 
 # System Design Advisor

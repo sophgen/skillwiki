@@ -74,26 +74,6 @@ Output in `website/out/` ready for GitHub Pages.
 - **Direct Links:** Raw GitHub URLs for fetching SKILL.md files
 - **Integration Guide:** Detailed `/integrate` page with examples
 
-## Syncing from Anthropic's Skills Repo
-
-To pull the latest skills (with scripts, LICENSE, etc.) from [anthropics/skills](https://github.com/anthropics/skills):
-
-```bash
-# If anthropics/skills is already cloned at /tmp/anthropics-skills:
-npm run sync:anthropics
-
-# Or clone first:
-npm run sync:anthropics:clone
-```
-
-Then regenerate metadata and zips:
-
-```bash
-npm run build:metadata
-```
-
-Skills are mapped to domains: `general`, `workflow`, `development`. Custom skills (education, trading, email-automation) are preserved.
-
 ## Adding Skills
 
 1. Create a skill directory under a domain folder:
@@ -175,7 +155,7 @@ Agents can integrate SkillWiki skills:
 curl https://skillwiki.ai/available-skills.xml
 
 # Load skill
-curl https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md
+curl https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md
 ```
 
 Example integration with Claude:
@@ -185,7 +165,7 @@ Example integration with Claude:
   <skill>
     <name>python-basics-101</name>
     <description>Learn Python fundamentals...</description>
-    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md</location>
+    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md</location>
   </skill>
 </available_skills>
 ```

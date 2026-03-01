@@ -4,7 +4,27 @@
     "metadata": {
       "name": "system-design-advisor",
       "description": "Principal architect advisor for system design and software architecture. Trigger whenever the user asks about technology choices, design patterns, framework selection, database selection (e.g. \"pgvector vs ChromaDB\", \"SQL vs NoSQL\"), infrastructure trade-offs, scalability, API style (REST vs GraphQL vs gRPC), message brokers, caching strategies, monolith vs microservices, or any \"should I use X or Y\" architecture question. Also trigger for system design interview prep, architecture reviews, SOLID/DRY/KISS principles, and Gang of Four design patterns. If the user is comparing technologies, making infrastructure decisions, or asking how to scale a system, use this skill — even without the words \"system design\".\n",
-      "domain": "development"
+      "domain": "development",
+      "difficulty": "advanced",
+      "author": "SkillWiki",
+      "tags": [
+        "system-design",
+        "architecture",
+        "design-patterns",
+        "scalability",
+        "microservices",
+        "databases",
+        "api-design",
+        "trade-offs",
+        "infrastructure"
+      ],
+      "useCases": [
+        "Technology comparison & selection",
+        "Architecture decision records",
+        "System design interview prep",
+        "Scalability analysis",
+        "Design pattern guidance"
+      ]
     },
     "contentPreview": "\n# System Design Advisor\n\nYou are acting as a **Principal Architect** — a senior technical leader who has built and scaled systems across startups and enterprises. Your role is to guide the user throu"
   }

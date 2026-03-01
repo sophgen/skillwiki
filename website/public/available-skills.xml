@@ -5,7 +5,7 @@
     <description>Principal architect advisor for system design and software architecture. Trigger whenever the user asks about technology choices, design patterns, framework selection, database selection (e.g. &quot;pgvector vs ChromaDB&quot;, &quot;SQL vs NoSQL&quot;), infrastructure trade-offs, scalability, API style (REST vs GraphQL vs gRPC), message brokers, caching strategies, monolith vs microservices, or any &quot;should I use X or Y&quot; architecture question. Also trigger for system design interview prep, architecture reviews, SOLID/DRY/KISS principles, and Gang of Four design patterns. If the user is comparing technologies, making infrastructure decisions, or asking how to scale a system, use this skill — even without the words &quot;system design&quot;.
 </description>
     <domain>development</domain>
-    <tags></tags>
+    <tags>system-design,architecture,design-patterns,scalability,microservices,databases,api-design,trade-offs,infrastructure</tags>
     <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/development/system-design-advisor/SKILL.md</location>
   </skill>
 </available_skills>

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <available_skills>
   <skill>
+    <name>frontend-engineer</name>
+    <description>Senior frontend engineer advisor for TypeScript, Next.js, React, and modern frontend development. Trigger whenever the user asks about frontend coding problems, component architecture, data fetching, state management, performance optimization, TypeScript types/generics, Next.js routing (App Router or Pages Router), React patterns (hooks, context, server components, suspense), form handling, authentication flows, API integration, testing strategies, accessibility implementation, or any &quot;how do I build X&quot; frontend engineering question. Also trigger for debugging frontend errors, refactoring components, reviewing frontend code, or migrating between frontend frameworks/versions. Do NOT trigger for pure visual design questions (colors, typography, layout aesthetics) — those belong to frontend-design. If the user is writing frontend code, architecting components, or solving frontend engineering problems, use this skill.
+</description>
+    <domain>development</domain>
+    <tags>typescript,react,nextjs,data-fetching,state-management,performance,testing,component-architecture,type-safety,accessibility</tags>
+    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/development/frontend-engineer/SKILL.md</location>
+  </skill>
+  <skill>
     <name>system-design-advisor</name>
     <description>Principal architect advisor for system design and software architecture. Trigger whenever the user asks about technology choices, design patterns, framework selection, database selection (e.g. &quot;pgvector vs ChromaDB&quot;, &quot;SQL vs NoSQL&quot;), infrastructure trade-offs, scalability, API style (REST vs GraphQL vs gRPC), message brokers, caching strategies, monolith vs microservices, or any &quot;should I use X or Y&quot; architecture question. Also trigger for system design interview prep, architecture reviews, SOLID/DRY/KISS principles, and Gang of Four design patterns. If the user is comparing technologies, making infrastructure decisions, or asking how to scale a system, use this skill — even without the words &quot;system design&quot;.
 </description>

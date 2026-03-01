@@ -1,5 +1,5 @@
 import { SearchFilters, Skill } from '../lib/types';
-import { getDomainStyle } from '../lib/domains';
+import { getDomainStyle, getDifficultyCheckboxClass } from '../lib/domains';
 
 interface FilterSidebarProps {
   skills: Skill[];
@@ -90,11 +90,7 @@ export default function FilterSidebar({
           <div className="space-y-3">
             {difficulties.map((difficulty) => {
               const count = skills.filter((s) => s.metadata.difficulty === difficulty).length;
-              const colorClass =
-                difficulty === 'beginner' ? 'peer-checked:bg-emerald-600 peer-checked:border-emerald-600' :
-                  difficulty === 'intermediate' ? 'peer-checked:bg-amber-600 peer-checked:border-amber-600' :
-                    difficulty === 'advanced' ? 'peer-checked:bg-emerald-600 peer-checked:border-emerald-600' :
-                      'peer-checked:bg-zinc-600 peer-checked:border-zinc-600';
+              const colorClass = getDifficultyCheckboxClass(difficulty);
               return (
                 <label key={difficulty} className="flex items-center cursor-pointer group">
                   <div className="relative flex items-center justify-center w-5 h-5 mr-3">

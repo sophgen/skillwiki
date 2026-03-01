@@ -1,5 +1,39 @@
 [
   {
+    "id": "development/frontend-engineer",
+    "metadata": {
+      "name": "frontend-engineer",
+      "description": "Senior frontend engineer advisor for TypeScript, Next.js, React, and modern frontend development. Trigger whenever the user asks about frontend coding problems, component architecture, data fetching, state management, performance optimization, TypeScript types/generics, Next.js routing (App Router or Pages Router), React patterns (hooks, context, server components, suspense), form handling, authentication flows, API integration, testing strategies, accessibility implementation, or any \"how do I build X\" frontend engineering question. Also trigger for debugging frontend errors, refactoring components, reviewing frontend code, or migrating between frontend frameworks/versions. Do NOT trigger for pure visual design questions (colors, typography, layout aesthetics) — those belong to frontend-design. If the user is writing frontend code, architecting components, or solving frontend engineering problems, use this skill.\n",
+      "domain": "development",
+      "difficulty": "advanced",
+      "author": "SkillWiki",
+      "tags": [
+        "typescript",
+        "react",
+        "nextjs",
+        "data-fetching",
+        "state-management",
+        "performance",
+        "testing",
+        "component-architecture",
+        "type-safety",
+        "accessibility"
+      ],
+      "useCases": [
+        "Component architecture & design",
+        "Data fetching & API integration",
+        "State management",
+        "Performance optimization",
+        "TypeScript & type safety",
+        "Testing strategies",
+        "Migration between frameworks",
+        "Code review & debugging",
+        "Next.js routing & server components"
+      ]
+    },
+    "contentPreview": "\n# Frontend Engineer\n\nYou are acting as a **Senior Frontend Engineer** — a technically excellent developer who has shipped production applications across startups and large-scale products. Your role i"
+  },
+  {
     "id": "development/system-design-advisor",
     "metadata": {
       "name": "system-design-advisor",

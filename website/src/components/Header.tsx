@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
 import { useTheme } from 'next-themes';
 import { Skill } from '../lib/types';
+import { GITHUB_REPO } from '../lib/config';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -191,7 +192,7 @@ export default function Header({ onSearch, skills = [] }: HeaderProps) {
             )}
 
             <a
-              href="https://github.com/sophgen/skillwiki"
+              href={`https://github.com/${GITHUB_REPO}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 bg-white dark:bg-white/5 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-white/10 px-4 py-2 rounded-full transition-all shadow-sm flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-950"
@@ -305,7 +306,7 @@ export default function Header({ onSearch, skills = [] }: HeaderProps) {
             Skill Graph
           </Link>
           <a
-            href="https://github.com/sophgen/skillwiki"
+            href={`https://github.com/${GITHUB_REPO}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-3 py-2 rounded-lg flex items-center gap-2"

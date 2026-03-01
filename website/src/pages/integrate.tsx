@@ -2,21 +2,22 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import Header from '../components/Header';
 import { getAllSkills } from '../lib/skills';
-import { RAW_BASE } from '../lib/config';
+import { RAW_BASE, GITHUB_REPO, SITE_URL } from '../lib/config';
 
 interface IntegrateProps {
   /** First skill used as a concrete example in code snippets */
   exampleSkill: { name: string; description: string; domain: string; id: string } | null;
   rawBase: string;
+  siteUrl: string;
 }
 
-export default function Integrate({ exampleSkill, rawBase }: IntegrateProps) {
+export default function Integrate({ exampleSkill, rawBase, siteUrl }: IntegrateProps) {
   // Fallback values so the page still renders if no skills exist yet
   const ex = exampleSkill ?? {
     name: 'example-skill',
     description: 'A description of the skill...',
-    domain: 'general',
-    id: 'general/example-skill',
+    domain: 'example-domain',
+    id: 'example-domain/example-skill',
   };
   const skillLocation = `${rawBase}/skills/${ex.id}/SKILL.md`;
   return (
@@ -52,7 +53,7 @@ export default function Integrate({ exampleSkill, rawBase }: IntegrateProps) {
               </p>
               <pre className="bg-zinc-900 dark:bg-zinc-950 text-zinc-100 dark:text-zinc-300 p-5 rounded-xl border border-zinc-800 dark:border-zinc-800/80 shadow-inner overflow-x-auto mb-4 text-sm font-mono">
                 <code>
-                  {`curl https://skillwiki.ai/available-skills.xml`}
+                  {`curl ${siteUrl}/available-skills.xml`}
                 </code>
               </pre>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-4">
@@ -195,7 +196,7 @@ skills-ref to-prompt ./my-skill`}
               <p className="text-zinc-700 dark:text-zinc-400">
                 Open an issue or discussion on our{' '}
                 <a
-                  href="https://github.com/sophgen/skillwiki"
+                  href={`https://github.com/${GITHUB_REPO}`}
                   className="text-brand-600 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -221,11 +222,12 @@ export const getStaticProps: GetStaticProps<IntegrateProps> = async () => {
         ? {
             name: first.metadata.name,
             description: first.metadata.description,
-            domain: first.metadata.domain ?? first.domain ?? 'general',
+            domain: first.metadata.domain ?? first.domain ?? '',
             id: first.id,
           }
         : null,
       rawBase: RAW_BASE,
+      siteUrl: SITE_URL,
     },
   };
 };

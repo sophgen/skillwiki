@@ -81,13 +81,6 @@ export function getDomainStyle(domain?: string | null): DomainStyle {
   const key = domain.toLowerCase().trim();
   if (!key) return FALLBACK_STYLE;
 
-  // DEVELOPMENT domain: always green
-  if (key === 'development') {
-    const base = DOMAIN_PALETTE[2]; // emerald
-    const domainOverride = overrides[key];
-    return domainOverride?.icon ? { ...base, icon: domainOverride.icon } : base;
-  }
-
   const base = DOMAIN_PALETTE[domainHash(key) % DOMAIN_PALETTE.length];
   const domainOverride = overrides[key];
 
@@ -123,6 +116,17 @@ const KNOWN_DIFFICULTY: Record<string, number> = {
 
 const DIFFICULTY_FALLBACK = 'bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700';
 
+/** Checkbox color classes for difficulty filters, aligned with DIFFICULTY_PALETTE indices. */
+const DIFFICULTY_CHECKBOX_PALETTE: string[] = [
+  'peer-checked:bg-emerald-600 peer-checked:border-emerald-600',
+  'peer-checked:bg-amber-600 peer-checked:border-amber-600',
+  'peer-checked:bg-emerald-600 peer-checked:border-emerald-600',
+  'peer-checked:bg-sky-600 peer-checked:border-sky-600',
+  'peer-checked:bg-violet-600 peer-checked:border-violet-600',
+];
+
+const DIFFICULTY_CHECKBOX_FALLBACK = 'peer-checked:bg-zinc-600 peer-checked:border-zinc-600';
+
 /**
  * Returns Tailwind classes for a difficulty badge.
  * Known values (beginner/intermediate/advanced) always get the same color.
@@ -137,4 +141,19 @@ export function getDifficultyStyle(difficulty?: string | null): string {
     return DIFFICULTY_PALETTE[KNOWN_DIFFICULTY[key]];
   }
   return DIFFICULTY_PALETTE[domainHash(key) % DIFFICULTY_PALETTE.length];
+}
+
+/**
+ * Returns Tailwind checkbox classes for a difficulty filter.
+ * Uses the same palette-index logic as getDifficultyStyle for consistency.
+ */
+export function getDifficultyCheckboxClass(difficulty?: string | null): string {
+  if (!difficulty) return DIFFICULTY_CHECKBOX_FALLBACK;
+  const key = difficulty.toLowerCase().trim();
+  if (!key) return DIFFICULTY_CHECKBOX_FALLBACK;
+
+  if (key in KNOWN_DIFFICULTY) {
+    return DIFFICULTY_CHECKBOX_PALETTE[KNOWN_DIFFICULTY[key]];
+  }
+  return DIFFICULTY_CHECKBOX_PALETTE[domainHash(key) % DIFFICULTY_CHECKBOX_PALETTE.length];
 }

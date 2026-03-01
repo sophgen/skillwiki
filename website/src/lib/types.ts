@@ -4,7 +4,7 @@ export interface SkillMetadata {
   license?: string;
   compatibility?: string;
   author?: string;
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  difficulty?: string;
   domain?: string;
   useCases?: string[];
   tags?: string[];

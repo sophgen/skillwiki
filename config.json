@@ -1,5 +1,6 @@
 {
   "GITHUB_REPO": "sophgen/skillwiki",
   "GITHUB_BRANCH": "main",
+  "SITE_URL": "https://skillwiki.ai",
   "DOMAIN_OVERRIDES": {}
 }

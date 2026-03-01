@@ -122,7 +122,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                     onSortChange={(sort) =>
                     setSortBy(sort as 'default' | 'alphabetical')
                   }
-                  gridCols="lg:grid-cols-3"
+                  gridCols="lg:grid-cols-2"
                 />
               </div>
             </div>

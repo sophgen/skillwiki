@@ -78,7 +78,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
         {/* Hero section */}
         <section className="relative z-10 pt-12 pb-16">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Breadcrumbs: Home → Domain → Skill Name */}
             <nav className="flex mb-8" aria-label="Breadcrumb">
               <ol className="inline-flex items-center space-x-1 md:space-x-3 text-sm font-medium">
@@ -111,7 +111,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
             <p className="text-xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-3xl leading-relaxed">{description}</p>
 
             {/* Metadata */}
-            <div className="flex flex-wrap gap-3 items-center mb-10">
+            <div className="flex flex-wrap gap-3 items-center mb-6">
               {domain && (
                 <span className={`inline-flex items-center px-3 py-1.5 ${dConfig.bg} ${dConfig.color} border ${dConfig.badgeBorder} rounded-lg text-xs font-bold uppercase tracking-widest shadow-sm`}>
                   {domain}
@@ -126,6 +126,44 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                 <span className="inline-flex items-center px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200/50 dark:border-zinc-700/50 rounded-lg text-xs font-bold tracking-widest shadow-sm">
                   BY <span className="ml-1 text-zinc-900 dark:text-zinc-100">{author.toUpperCase()}</span>
                 </span>
+              )}
+            </div>
+
+            {/* Tags and Related skills - at top */}
+            <div className="flex flex-col sm:flex-row gap-6 mb-10">
+              {tags && tags.length > 0 && (
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Tags</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors rounded-lg text-xs font-semibold"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {relatedSkills.length > 0 && (
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">Related Skills</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {relatedSkills.slice(0, 4).map((relatedSkill) => (
+                      <Link
+                        key={relatedSkill.id}
+                        href={`/skills/${relatedSkill.id}`}
+                        className="group inline-flex flex-col px-4 py-3 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-brand-500/50 hover:shadow-md transition-all"
+                      >
+                        <span className="font-bold text-sm text-zinc-900 dark:text-zinc-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">{relatedSkill.metadata.name}</span>
+                        {relatedSkill.metadata.difficulty && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide text-zinc-500 dark:text-zinc-400 mt-0.5">{relatedSkill.metadata.difficulty}</span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
 
@@ -188,9 +226,9 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
         {/* Content and sidebar */}
         <section className="pb-24 relative z-10 w-full mt-[-2rem]">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8">
             {/* Main content */}
-            <div className="lg:w-2/3">
+            <div className={`min-w-0 ${(license || compatibility) ? 'lg:w-3/4' : 'lg:w-full'}`}>
               <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-8 lg:p-12 prose prose-zinc dark:prose-invert prose-headings:font-display prose-headings:font-bold prose-a:text-brand-600 dark:prose-a:text-brand-400 hover:prose-a:text-brand-700 dark:hover:prose-a:text-brand-300 max-w-none prose-pre:bg-[#282c34] prose-pre:shadow-inner prose-pre:overflow-x-auto prose-img:rounded-xl">
                 <div
                   className="markdown-body"
@@ -199,11 +237,10 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
               </div>
             </div>
 
-            {/* Sidebar */}
-            <aside className="lg:w-1/3">
-              {/* Spec fields */}
-              {(license || compatibility) && (
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 mb-8 transition-colors">
+            {/* Sidebar - Spec only (tags & related skills moved to top) */}
+            {(license || compatibility) && (
+            <aside className="lg:w-1/4">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 sticky top-28 transition-colors">
                   <h3 className="font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4 text-lg">Spec</h3>
                   <dl className="space-y-3 text-sm">
                     {license && (
@@ -220,51 +257,8 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                     )}
                   </dl>
                 </div>
-              )}
-
-              {/* Tags */}
-              {tags && tags.length > 0 && (
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 mb-8 transition-colors">
-                  <h3 className="font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4 text-lg">Tags</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1.5 bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors rounded-lg text-xs font-semibold"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Related skills */}
-              {relatedSkills.length > 0 && (
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm dark:shadow-soft border border-zinc-200/80 dark:border-zinc-800/80 p-6 sticky top-28 transition-colors">
-                  <h3 className="font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4 text-lg">Related Skills</h3>
-                  <div className="space-y-4">
-                    {relatedSkills.slice(0, 4).map((relatedSkill) => (
-                      <Link
-                        key={relatedSkill.id}
-                        href={`/skills/${relatedSkill.id}`}
-                        className="group block"
-                      >
-                        <h4 className="font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 text-sm">{relatedSkill.metadata.name}</h4>
-                        <div className="flex gap-2 mt-1 mb-1 items-center flex-wrap">
-                          {relatedSkill.metadata.difficulty && (
-                            <span className="text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400">
-                              {relatedSkill.metadata.difficulty}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2 mt-1">{relatedSkill.metadata.description}</p>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
             </aside>
+            )}
           </div>
         </section>
       </main>

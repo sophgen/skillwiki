@@ -93,7 +93,7 @@ export default function FilterSidebar({
               const colorClass =
                 difficulty === 'beginner' ? 'peer-checked:bg-emerald-600 peer-checked:border-emerald-600' :
                   difficulty === 'intermediate' ? 'peer-checked:bg-amber-600 peer-checked:border-amber-600' :
-                    difficulty === 'advanced' ? 'peer-checked:bg-rose-600 peer-checked:border-rose-600' :
+                    difficulty === 'advanced' ? 'peer-checked:bg-emerald-600 peer-checked:border-emerald-600' :
                       'peer-checked:bg-zinc-600 peer-checked:border-zinc-600';
               return (
                 <label key={difficulty} className="flex items-center cursor-pointer group">

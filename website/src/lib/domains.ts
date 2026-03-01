@@ -81,6 +81,13 @@ export function getDomainStyle(domain?: string | null): DomainStyle {
   const key = domain.toLowerCase().trim();
   if (!key) return FALLBACK_STYLE;
 
+  // DEVELOPMENT domain: always green
+  if (key === 'development') {
+    const base = DOMAIN_PALETTE[2]; // emerald
+    const domainOverride = overrides[key];
+    return domainOverride?.icon ? { ...base, icon: domainOverride.icon } : base;
+  }
+
   const base = DOMAIN_PALETTE[domainHash(key) % DOMAIN_PALETTE.length];
   const domainOverride = overrides[key];
 
@@ -102,7 +109,7 @@ export function getDomainStyle(domain?: string | null): DomainStyle {
 const DIFFICULTY_PALETTE: string[] = [
   'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50',
   'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border-amber-200/50 dark:border-amber-800/50',
-  'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border-rose-200/50 dark:border-rose-800/50',
+  'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50', // advanced: green
   'bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-400 border-sky-200/50 dark:border-sky-800/50',
   'bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border-violet-200/50 dark:border-violet-800/50',
 ];

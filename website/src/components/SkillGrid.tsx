@@ -12,7 +12,7 @@ export default function SkillGrid({
   skills,
   sortBy = 'default',
   onSortChange,
-  gridCols = 'lg:grid-cols-3',
+  gridCols = 'lg:grid-cols-2',
 }: SkillGridProps) {
   return (
     <div className="animate-fade-in-up">

@@ -169,6 +169,12 @@ export default function Header({ onSearch, skills = [] }: HeaderProps) {
             >
               Integration Guide
             </Link>
+            <Link
+              href="/graph"
+              className={`text-sm font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded px-2 py-1 ${router.pathname === '/graph' ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10' : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'}`}
+            >
+              Graph
+            </Link>
 
             {mounted && (
               <button
@@ -290,6 +296,13 @@ export default function Header({ onSearch, skills = [] }: HeaderProps) {
             className={`text-sm font-semibold px-2 py-1.5 rounded-lg ${router.pathname === '/integrate' ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10' : 'text-zinc-700 dark:text-zinc-300'}`}
           >
             Integration Guide
+          </Link>
+          <Link
+            href="/graph"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className={`text-sm font-semibold px-2 py-1.5 rounded-lg ${router.pathname === '/graph' ? 'text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10' : 'text-zinc-700 dark:text-zinc-300'}`}
+          >
+            Skill Graph
           </Link>
           <a
             href="https://github.com/sophgen/skillwiki"

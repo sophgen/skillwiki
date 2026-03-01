@@ -20,7 +20,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
     difficulties: [],
     query: '',
   });
-  const [sortBy, setSortBy] = useState<'default' | 'rated' | 'popular' | 'alphabetical'>('default');
+  const [sortBy, setSortBy] = useState<'default' | 'alphabetical'>('default');
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredSkills = useMemo(() => {
@@ -28,10 +28,6 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
     result = sortSkills(result, sortBy);
     return result;
   }, [filters, sortBy, initialSkills]);
-
-  const featuredSkills = initialSkills
-    .filter((skill) => skill.metadata.featured)
-    .slice(0, 3);
 
   return (
     <>
@@ -67,7 +63,7 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-cyan-200">AI Agents</span> Instantly
             </h1>
             <p className="text-lg lg:text-xl text-zinc-400 mb-6 max-w-2xl mx-auto leading-relaxed text-balance">
-              Discover, learn, and integrate pre-built skills for AI agents across education, trading, workflow automation, and more.
+              Discover, learn, and integrate pre-built skills for AI agents{domains.length > 0 ? ` across ${domains.join(', ')}` : ''}, and more.
             </p>
             {domains.length > 0 ? (
               <p className="text-sm font-semibold text-brand-300 mb-10 tracking-wide uppercase">
@@ -93,52 +89,6 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
             </div>
           </div>
         </section>
-
-        {/* Featured section */}
-        {featuredSkills.length > 0 && (
-          <section className="bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-900 py-20 relative z-10 transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between mb-10 animate-fade-in-up animated-delay-100">
-                <h2 className="text-3xl font-display font-bold text-zinc-900 dark:text-zinc-50 tracking-tight">Featured Skills</h2>
-                <span className="text-sm font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-widest hidden sm:block">Curated</span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-                {featuredSkills.map((skill, i) => (
-                  <div
-                    key={skill.id}
-                    className={`group bg-gradient-to-b from-white to-zinc-50/50 dark:from-zinc-900 dark:to-zinc-900/50 rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-soft hover:shadow-md dark:hover:shadow-float hover:-translate-y-1 hover:border-brand-500/30 dark:hover:border-brand-500/50 transition-all duration-300 animate-fade-in-up`}
-                    style={{ animationDelay: `${200 + i * 100}ms` }}
-                  >
-                    <div className="w-12 h-12 bg-brand-50 dark:bg-brand-500/10 rounded-xl flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 group-hover:scale-110 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300 text-2xl">
-                      {(() => {
-                        const d = skill.metadata.domain?.toLowerCase();
-                        if (d === 'automation') return '⚡';
-                        if (d === 'education') return '🎓';
-                        if (d === 'trading') return '📈';
-                        if (d === 'development') return '💻';
-                        if (d === 'workflow') return '🔄';
-                        return '🔧';
-                      })()}
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                      {skill.metadata.name}
-                    </h3>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-6 leading-relaxed">
-                      {skill.metadata.description.substring(0, 100)}{skill.metadata.description.length > 100 ? '...' : ''}
-                    </p>
-                    <a
-                      href={`/skills/${skill.id}`}
-                      className="inline-flex items-center text-brand-600 hover:text-brand-700 font-bold text-sm uppercase tracking-wide outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded px-1 -mx-1"
-                    >
-                      Learn more
-                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Browse section */}
         <section id="browse" className="py-24 relative z-10 scroll-mt-20">
@@ -169,8 +119,8 @@ export default function Home({ initialSkills, domains, difficulties }: HomeProps
                 <SkillGrid
                   skills={filteredSkills}
                   sortBy={sortBy}
-                  onSortChange={(sort) =>
-                    setSortBy(sort as 'default' | 'rated' | 'popular' | 'alphabetical')
+                    onSortChange={(sort) =>
+                    setSortBy(sort as 'default' | 'alphabetical')
                   }
                   gridCols="lg:grid-cols-3"
                 />

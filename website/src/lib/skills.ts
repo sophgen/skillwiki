@@ -15,13 +15,6 @@ function flattenMetadata(data: Record<string, unknown>): SkillMetadata {
   }
 
   // Coerce string values from quoted SKILL.md frontmatter to proper types
-  if (typeof flat.rating === 'string') {
-    const parsed = parseFloat(flat.rating as string);
-    flat.rating = isNaN(parsed) ? undefined : parsed;
-  }
-  if (typeof flat.featured === 'string') {
-    flat.featured = (flat.featured as string).toLowerCase() === 'true';
-  }
   if (typeof flat.tags === 'string') {
     flat.tags = (flat.tags as string).split(',').map((t) => t.trim()).filter(Boolean);
   }

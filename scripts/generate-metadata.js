@@ -43,7 +43,10 @@ function flattenMetadata(data) {
   return flat;
 }
 
-const VALID_DOMAINS = ['automation', 'education', 'trading', 'development', 'workflow', 'general'];
+/** Validates that a domain directory name follows the naming convention (lowercase alphanumeric + hyphens). */
+function isValidDomainName(name) {
+  return /^[a-z0-9]+(-[a-z0-9]+)*$/.test(name);
+}
 
 function validateSkill(skillId, skillName, domainDir, data, content) {
   const errors = [];
@@ -82,8 +85,8 @@ function validateSkill(skillId, skillName, domainDir, data, content) {
     errors.push(`domain "${frontmatterDomain}" in frontmatter does not match directory "skills/${domainDir}/"`);
   }
 
-  if (!VALID_DOMAINS.includes(domainDir)) {
-    errors.push(`invalid domain directory "${domainDir}"; allowed: ${VALID_DOMAINS.join(', ')}`);
+  if (!isValidDomainName(domainDir)) {
+    errors.push(`invalid domain directory name "${domainDir}"; must be lowercase alphanumeric with optional hyphens (e.g. "my-domain")`);
   }
 
   return errors;
@@ -132,6 +135,8 @@ function parseSkills() {
         }
 
         const flatMetadata = flattenMetadata(data);
+        // Ensure domain is set from directory when not in frontmatter
+        if (!flatMetadata.domain) flatMetadata.domain = domainDir;
 
         skills.push({
           id: skillId,

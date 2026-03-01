@@ -5,10 +5,8 @@ export interface SkillMetadata {
   compatibility?: string;
   author?: string;
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
-  rating?: number;
   domain?: string;
   useCases?: string[];
-  featured?: boolean;
   tags?: string[];
   [key: string]: unknown;
 }
@@ -27,7 +25,5 @@ export interface Skill {
 export interface SearchFilters {
   domains: string[];
   difficulties: string[];
-  rating?: number;
-  featured?: boolean;
   query?: string;
 }

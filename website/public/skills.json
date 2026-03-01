@@ -1,80 +1,11 @@
 [
   {
-    "id": "education/python-basics-101",
+    "id": "development/system-design-advisor",
     "metadata": {
-      "name": "python-basics-101",
-      "description": "Teaches fundamental Python programming concepts including variables, data types, loops, functions, and data structures. Use when a user wants to learn Python from scratch, needs help with basic Python syntax, is preparing for coding interviews, or asks about beginner programming topics.",
-      "license": "MIT",
-      "author": "Jane Doe",
-      "difficulty": "beginner",
-      "rating": 4.8,
-      "domain": "education",
-      "featured": true,
-      "tags": [
-        "python",
-        "programming",
-        "beginners",
-        "education"
-      ],
-      "useCases": [
-        "learn-programming",
-        "interview-preparation",
-        "build-python-foundations"
-      ]
+      "name": "system-design-advisor",
+      "description": "Principal architect advisor for system design and software architecture. Trigger whenever the user asks about technology choices, design patterns, framework selection, database selection (e.g. \"pgvector vs ChromaDB\", \"SQL vs NoSQL\"), infrastructure trade-offs, scalability, API style (REST vs GraphQL vs gRPC), message brokers, caching strategies, monolith vs microservices, or any \"should I use X or Y\" architecture question. Also trigger for system design interview prep, architecture reviews, SOLID/DRY/KISS principles, and Gang of Four design patterns. If the user is comparing technologies, making infrastructure decisions, or asking how to scale a system, use this skill — even without the words \"system design\".\n",
+      "domain": "development"
     },
-    "contentPreview": "\n# Python Basics 101\n\nLearn the fundamentals of Python programming with hands-on examples.\n\n## What You'll Learn\n\n- Variables and data types\n- Control flow (if/else, loops)\n- Functions and scope\n- Lis"
-  },
-  {
-    "id": "trading/stock-analysis",
-    "metadata": {
-      "name": "stock-analysis",
-      "description": "Analyzes stock market data, calculates technical indicators (SMA, EMA, RSI, MACD), and generates trading signals. Use when a user wants to analyze stocks, evaluate market trends, calculate moving averages, identify support/resistance levels, or build trading strategies.",
-      "license": "MIT",
-      "author": "Bob Smith",
-      "difficulty": "advanced",
-      "rating": 4.6,
-      "domain": "trading",
-      "featured": true,
-      "tags": [
-        "stocks",
-        "trading",
-        "finance",
-        "technical-analysis"
-      ],
-      "useCases": [
-        "stock-market-analysis",
-        "technical-indicator-calculation",
-        "trading-signal-generation",
-        "portfolio-analysis"
-      ]
-    },
-    "contentPreview": "\n# Stock Analysis Skill\n\nAdvanced stock market analysis and technical indicator calculations for traders.\n\n## Features\n\n- Real-time price data handling\n- Technical indicator calculations (SMA, EMA, RS"
-  },
-  {
-    "id": "workflow/email-automation",
-    "metadata": {
-      "name": "email-automation",
-      "description": "Automates email workflows including sending bulk messages, processing templates with variable substitution, and scheduling emails. Supports Gmail, Outlook, and SMTP. Use when a user wants to send automated emails, create email templates, schedule newsletters, set up notification systems, or build customer onboarding email flows.",
-      "license": "MIT",
-      "author": "Carol Johnson",
-      "difficulty": "intermediate",
-      "rating": 4.5,
-      "domain": "workflow",
-      "featured": false,
-      "tags": [
-        "email",
-        "automation",
-        "workflow",
-        "messaging"
-      ],
-      "useCases": [
-        "email-automation",
-        "bulk-messaging-campaigns",
-        "workflow-scheduling",
-        "template-processing",
-        "newsletter-distribution"
-      ]
-    },
-    "contentPreview": "\n# Email Automation Skill\n\nAutomate your email workflows with templates, scheduling, and multi-provider support.\n\n## Features\n\n- Send emails programmatically (Gmail, Outlook, SMTP)\n- Template processi"
+    "contentPreview": "\n# System Design Advisor\n\nYou are acting as a **Principal Architect** — a senior technical leader who has built and scaled systems across startups and enterprises. Your role is to guide the user throu"
   }
 ]

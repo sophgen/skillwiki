@@ -9,7 +9,6 @@ const mockSkills: Skill[] = [
       description: 'Learn Python',
       domain: 'education',
       difficulty: 'beginner',
-      rating: 4.5,
       tags: ['python', 'programming'],
     },
     content: '',
@@ -21,7 +20,6 @@ const mockSkills: Skill[] = [
       description: 'Trade stocks',
       domain: 'trading',
       difficulty: 'advanced',
-      rating: 4.8,
       tags: ['stocks', 'finance'],
     },
     content: '',
@@ -49,11 +47,6 @@ describe('searchSkills', () => {
 });
 
 describe('sortSkills', () => {
-  test('sorts by rating', () => {
-    const result = sortSkills(mockSkills, 'rated');
-    expect(result[0].metadata.rating).toBeGreaterThanOrEqual(result[1].metadata.rating!);
-  });
-
   test('sorts alphabetically', () => {
     const result = sortSkills(mockSkills, 'alphabetical');
     expect(result[0].metadata.name < result[1].metadata.name).toBe(true);

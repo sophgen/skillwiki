@@ -1,7 +1,24 @@
 import Head from 'next/head';
+import { GetStaticProps } from 'next';
 import Header from '../components/Header';
+import { getAllSkills } from '../lib/skills';
+import { RAW_BASE } from '../lib/config';
 
-export default function Integrate() {
+interface IntegrateProps {
+  /** First skill used as a concrete example in code snippets */
+  exampleSkill: { name: string; description: string; domain: string; id: string } | null;
+  rawBase: string;
+}
+
+export default function Integrate({ exampleSkill, rawBase }: IntegrateProps) {
+  // Fallback values so the page still renders if no skills exist yet
+  const ex = exampleSkill ?? {
+    name: 'example-skill',
+    description: 'A description of the skill...',
+    domain: 'general',
+    id: 'general/example-skill',
+  };
+  const skillLocation = `${rawBase}/skills/${ex.id}/SKILL.md`;
   return (
     <>
       <Head>
@@ -52,9 +69,10 @@ export default function Integrate() {
                   {`<?xml version="1.0" encoding="UTF-8"?>
 <available_skills>
   <skill>
-    <name>python-basics-101</name>
-    <description>Learn fundamental Python concepts...</description>
-    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md</location>
+    <name>${ex.name}</name>
+    <description>${ex.description.substring(0, 80)}...</description>
+    <domain>${ex.domain}</domain>
+    <location>${skillLocation}</location>
   </skill>
   <!-- More skills... -->
 </available_skills>`}
@@ -74,9 +92,10 @@ export default function Integrate() {
                 <code>
                   {`<available_skills>
   <skill>
-    <name>python-basics-101</name>
-    <description>Learn fundamental Python concepts including variables, loops, and functions.</description>
-    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md</location>
+    <name>${ex.name}</name>
+    <description>${ex.description.substring(0, 80)}...</description>
+    <domain>${ex.domain}</domain>
+    <location>${skillLocation}</location>
   </skill>
 </available_skills>`}
                 </code>
@@ -93,7 +112,7 @@ export default function Integrate() {
               </p>
               <pre className="bg-zinc-900 dark:bg-zinc-950 text-zinc-100 dark:text-zinc-300 p-4 rounded-lg overflow-x-auto border border-zinc-800 dark:border-zinc-800/80">
                 <code>
-                  {`curl https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md`}
+                  {`curl ${skillLocation}`}
                 </code>
               </pre>
               <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-4">
@@ -191,3 +210,22 @@ skills-ref to-prompt ./my-skill`}
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps<IntegrateProps> = async () => {
+  const skills = getAllSkills();
+  const first = skills[0] ?? null;
+
+  return {
+    props: {
+      exampleSkill: first
+        ? {
+            name: first.metadata.name,
+            description: first.metadata.description,
+            domain: first.metadata.domain ?? first.domain ?? 'general',
+            id: first.id,
+          }
+        : null,
+      rawBase: RAW_BASE,
+    },
+  };
+};

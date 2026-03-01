@@ -3,7 +3,7 @@ import SkillCard from './SkillCard';
 
 interface SkillGridProps {
   skills: Skill[];
-  sortBy?: 'default' | 'rated' | 'popular' | 'alphabetical';
+  sortBy?: 'default' | 'alphabetical';
   onSortChange?: (sort: string) => void;
   gridCols?: string;
 }
@@ -31,8 +31,6 @@ export default function SkillGrid({
             className="appearance-none w-full pl-4 pr-10 py-2.5 bg-zinc-50 dark:bg-zinc-950 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm font-semibold text-zinc-700 dark:text-zinc-300 cursor-pointer shadow-sm transition-all"
           >
             <option value="default">Default</option>
-            <option value="rated">Highest Rated</option>
-            <option value="popular">Most Popular</option>
             <option value="alphabetical">Alphabetical</option>
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-400 transition-colors">

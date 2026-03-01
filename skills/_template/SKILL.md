@@ -1,7 +1,7 @@
 ---
 # TEMPLATE FILE: Not a real skill. Copy to skills/{domain}/your-skill-name/ and update.
 # Required: Must match the skill directory name (e.g., your-skill-name), NOT the full path.
-# Place under a valid domain folder: automation | education | trading | development | workflow | general
+# Place under a domain folder (e.g. development, automation, general — any lowercase name works).
 name: your-skill-name-here
 
 # Required: 1-1024 characters. Describe what the skill does AND when to use it.
@@ -22,7 +22,7 @@ metadata:
   author: Your Name
   difficulty: beginner  # beginner | intermediate | advanced
   rating: "4.0"
-  domain: education     # automation | education | trading | development | workflow | general
+  domain: your-domain    # Must match the parent directory name under skills/
   use-cases: "use-case-1, use-case-2"
   featured: "false"
   tags: "tag1, tag2"

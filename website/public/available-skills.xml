@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <available_skills>
   <skill>
-    <name>python-basics-101</name>
-    <description>Teaches fundamental Python programming concepts including variables, data types, loops, functions, and data structures. Use when a user wants to learn Python from scratch, needs help with basic Python syntax, is preparing for coding interviews, or asks about beginner programming topics.</description>
-    <domain>education</domain>
-    <tags>python,programming,beginners,education</tags>
-    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md</location>
-  </skill>
-  <skill>
-    <name>stock-analysis</name>
-    <description>Analyzes stock market data, calculates technical indicators (SMA, EMA, RSI, MACD), and generates trading signals. Use when a user wants to analyze stocks, evaluate market trends, calculate moving averages, identify support/resistance levels, or build trading strategies.</description>
-    <domain>trading</domain>
-    <tags>stocks,trading,finance,technical-analysis</tags>
-    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/trading/stock-analysis/SKILL.md</location>
-  </skill>
-  <skill>
-    <name>email-automation</name>
-    <description>Automates email workflows including sending bulk messages, processing templates with variable substitution, and scheduling emails. Supports Gmail, Outlook, and SMTP. Use when a user wants to send automated emails, create email templates, schedule newsletters, set up notification systems, or build customer onboarding email flows.</description>
-    <domain>workflow</domain>
-    <tags>email,automation,workflow,messaging</tags>
-    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/workflow/email-automation/SKILL.md</location>
+    <name>system-design-advisor</name>
+    <description>Principal architect advisor for system design and software architecture. Trigger whenever the user asks about technology choices, design patterns, framework selection, database selection (e.g. &quot;pgvector vs ChromaDB&quot;, &quot;SQL vs NoSQL&quot;), infrastructure trade-offs, scalability, API style (REST vs GraphQL vs gRPC), message brokers, caching strategies, monolith vs microservices, or any &quot;should I use X or Y&quot; architecture question. Also trigger for system design interview prep, architecture reviews, SOLID/DRY/KISS principles, and Gang of Four design patterns. If the user is comparing technologies, making infrastructure decisions, or asking how to scale a system, use this skill — even without the words &quot;system design&quot;.
+</description>
+    <domain>development</domain>
+    <tags></tags>
+    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/development/system-design-advisor/SKILL.md</location>
   </skill>
 </available_skills>

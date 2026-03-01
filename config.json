@@ -1,4 +1,5 @@
 {
   "GITHUB_REPO": "sophgen/skillwiki",
-  "GITHUB_BRANCH": "main"
+  "GITHUB_BRANCH": "main",
+  "DOMAIN_OVERRIDES": {}
 }

@@ -10,6 +10,7 @@ import Header from '../../components/Header';
 import { Skill } from '../../lib/types';
 import { getSkillByIdSync, getSkillIds, getAllSkills } from '../../lib/skills';
 import { REPO_TREE_BASE } from '../../lib/config';
+import { getDomainStyle, getDifficultyStyle } from '../../lib/domains';
 
 const md: MarkdownIt = new MarkdownIt({
   html: false, // Disable raw HTML for security
@@ -34,7 +35,7 @@ interface SkillDetailProps {
 
 export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) {
   const [copied, setCopied] = useState(false);
-  const { name: rawName, description, author, difficulty, rating, domain, useCases, tags, license, compatibility } = skill.metadata;
+  const { name: rawName, description, author, difficulty, domain, useCases, tags, license, compatibility } = skill.metadata;
 
   // Format slug-like names to human readable
   const name = rawName.includes('-') && !rawName.includes(' ')
@@ -43,25 +44,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
 
   const htmlContent = md.render(skill.content);
 
-  const difficultyStyles: Record<string, string> = {
-    beginner: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50',
-    intermediate: 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border-amber-200/50 dark:border-amber-800/50',
-    advanced: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border-rose-200/50 dark:border-rose-800/50',
-  };
-
-  const domainConfig: Record<string, { color: string, bg: string, border: string }> = {
-    automation: { color: 'text-blue-700 dark:text-blue-300', bg: 'bg-blue-50 dark:bg-blue-900/20', border: 'border-blue-200/50 dark:border-blue-800/50' },
-    education: { color: 'text-green-700 dark:text-green-300', bg: 'bg-green-50 dark:bg-green-900/20', border: 'border-green-200/50 dark:border-green-800/50' },
-    trading: { color: 'text-amber-700 dark:text-amber-300', bg: 'bg-amber-50 dark:bg-amber-900/20', border: 'border-amber-200/50 dark:border-amber-800/50' },
-    development: { color: 'text-purple-700 dark:text-purple-300', bg: 'bg-purple-50 dark:bg-purple-900/20', border: 'border-purple-200/50 dark:border-purple-800/50' },
-    workflow: { color: 'text-cyan-700 dark:text-cyan-300', bg: 'bg-cyan-50 dark:bg-cyan-900/20', border: 'border-cyan-200/50 dark:border-cyan-800/50' },
-    general: { color: 'text-zinc-700 dark:text-zinc-300', bg: 'bg-zinc-50 dark:bg-zinc-900/50', border: 'border-zinc-200/50 dark:border-zinc-800/50' }
-  };
-
-  const getDomainConfig = (d: string) => {
-    return domainConfig[d.toLowerCase()] || domainConfig.general;
-  };
-  const dConfig = domain ? getDomainConfig(domain) : domainConfig.general;
+  const dConfig = getDomainStyle(domain);
 
   const handleCopy = async () => {
     try {
@@ -79,7 +62,7 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
   return (
     <>
       <Head>
-        <title>{name} - SkillWiki</title>
+        <title>{`${name} - SkillWiki`}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={`${name} - SkillWiki`} />
         <meta property="og:description" content={description} />
@@ -130,19 +113,13 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
             {/* Metadata */}
             <div className="flex flex-wrap gap-3 items-center mb-10">
               {domain && (
-                <span className={`inline-flex items-center px-3 py-1.5 ${dConfig.bg} ${dConfig.color} border ${dConfig.border} rounded-lg text-xs font-bold uppercase tracking-widest shadow-sm`}>
+                <span className={`inline-flex items-center px-3 py-1.5 ${dConfig.bg} ${dConfig.color} border ${dConfig.badgeBorder} rounded-lg text-xs font-bold uppercase tracking-widest shadow-sm`}>
                   {domain}
                 </span>
               )}
               {difficulty && (
-                <span className={`inline-flex items-center px-3 py-1.5 border rounded-lg text-xs font-bold uppercase tracking-widest shadow-sm ${difficultyStyles[difficulty.toLowerCase()] || difficultyStyles.beginner}`}>
+                <span className={`inline-flex items-center px-3 py-1.5 border rounded-lg text-xs font-bold uppercase tracking-widest shadow-sm ${getDifficultyStyle(difficulty)}`}>
                   {difficulty}
-                </span>
-              )}
-              {rating && (
-                <span className="inline-flex items-center px-3 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-lg text-xs font-bold uppercase tracking-widest shadow-sm text-zinc-700 dark:text-zinc-300">
-                  <span className="text-yellow-500 mr-1.5 text-sm">★</span>
-                  <span>{rating.toFixed(1)} Rating</span>
                 </span>
               )}
               {author && (
@@ -278,11 +255,6 @@ export default function SkillDetail({ skill, relatedSkills }: SkillDetailProps) 
                           {relatedSkill.metadata.difficulty && (
                             <span className="text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400">
                               {relatedSkill.metadata.difficulty}
-                            </span>
-                          )}
-                          {relatedSkill.metadata.rating && (
-                            <span className="text-[10px] font-bold uppercase text-zinc-700 dark:text-zinc-300 flex items-center bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
-                              <span className="mr-0.5 text-yellow-500">★</span>{relatedSkill.metadata.rating.toFixed(1)}
                             </span>
                           )}
                         </div>

@@ -1,5 +1,6 @@
 import { Skill } from '../lib/types';
 import Link from 'next/link';
+import { getDomainStyle, getDifficultyStyle } from '../lib/domains';
 
 interface SkillCardProps {
   skill: Skill;
@@ -8,34 +9,14 @@ interface SkillCardProps {
 }
 
 export default function SkillCard({ skill, style, className = '' }: SkillCardProps) {
-  const { name: rawName, description, domain, difficulty, rating, author, tags } = skill.metadata;
+  const { name: rawName, description, domain, difficulty, author, tags } = skill.metadata;
 
   // Format slug-like names to human readable
   const name = rawName.includes('-') && !rawName.includes(' ')
     ? rawName.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
     : rawName;
 
-  const domainConfig: Record<string, { color: string, icon: string, border: string }> = {
-    automation: { color: 'text-blue-600 dark:text-blue-400', icon: '⚡', border: 'border-t-blue-500' },
-    education: { color: 'text-green-600 dark:text-green-400', icon: '🎓', border: 'border-t-green-500' },
-    trading: { color: 'text-amber-600 dark:text-amber-400', icon: '📈', border: 'border-t-amber-500' },
-    development: { color: 'text-purple-600 dark:text-purple-400', icon: '💻', border: 'border-t-purple-500' },
-    workflow: { color: 'text-cyan-600 dark:text-cyan-400', icon: '🔄', border: 'border-t-cyan-500' },
-    general: { color: 'text-zinc-600 dark:text-zinc-400', icon: '🔧', border: 'border-t-zinc-500' }
-  };
-
-  const getDomainConfig = (d: string) => {
-    const key = d.toLowerCase();
-    return domainConfig[key] || domainConfig.general;
-  };
-
-  const dConfig = domain ? getDomainConfig(domain) : domainConfig.general;
-
-  const difficultyStyles: Record<string, string> = {
-    beginner: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border-emerald-200/50 dark:border-emerald-800/50',
-    intermediate: 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border-amber-200/50 dark:border-amber-800/50',
-    advanced: 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border-rose-200/50 dark:border-rose-800/50',
-  };
+  const dConfig = getDomainStyle(domain);
 
   return (
     <div
@@ -70,16 +51,9 @@ export default function SkillCard({ skill, style, className = '' }: SkillCardPro
         <div className="flex items-center gap-2">
           {difficulty && (
             <span
-              className={`px-2 py-0.5 rounded text-[11px] font-bold tracking-wide border ${difficultyStyles[difficulty] || 'bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700'
-                }`}
+              className={`px-2 py-0.5 rounded text-[11px] font-bold tracking-wide border ${getDifficultyStyle(difficulty)}`}
             >
               {difficulty.toUpperCase()}
-            </span>
-          )}
-          {rating && (
-            <span className="flex items-center px-2 py-0.5 bg-zinc-50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 rounded text-[11px] font-bold">
-              <span className="mr-1 text-yellow-500 text-xs">★</span>
-              <span>{Number(rating).toFixed(1)}</span>
             </span>
           )}
         </div>

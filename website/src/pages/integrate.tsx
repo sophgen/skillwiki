@@ -54,7 +54,7 @@ export default function Integrate() {
   <skill>
     <name>python-basics-101</name>
     <description>Learn fundamental Python concepts...</description>
-    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md</location>
+    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md</location>
   </skill>
   <!-- More skills... -->
 </available_skills>`}
@@ -76,7 +76,7 @@ export default function Integrate() {
   <skill>
     <name>python-basics-101</name>
     <description>Learn fundamental Python concepts including variables, loops, and functions.</description>
-    <location>https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md</location>
+    <location>https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md</location>
   </skill>
 </available_skills>`}
                 </code>
@@ -93,7 +93,7 @@ export default function Integrate() {
               </p>
               <pre className="bg-zinc-900 dark:bg-zinc-950 text-zinc-100 dark:text-zinc-300 p-4 rounded-lg overflow-x-auto border border-zinc-800 dark:border-zinc-800/80">
                 <code>
-                  {`curl https://raw.githubusercontent.com/skillwiki/catalog/main/skills/education/python-basics-101/SKILL.md`}
+                  {`curl https://raw.githubusercontent.com/sophgen/skillwiki/main/skills/education/python-basics-101/SKILL.md`}
                 </code>
               </pre>
               <p className="text-zinc-600 dark:text-zinc-400 text-sm mt-4">
@@ -176,7 +176,7 @@ skills-ref to-prompt ./my-skill`}
               <p className="text-zinc-700 dark:text-zinc-400">
                 Open an issue or discussion on our{' '}
                 <a
-                  href="https://github.com/skillwiki/catalog"
+                  href="https://github.com/sophgen/skillwiki"
                   className="text-brand-600 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"

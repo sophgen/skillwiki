@@ -30,7 +30,7 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <a href="https://github.com/skillwiki/catalog" target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                                <a href="https://github.com/sophgen/skillwiki" target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                                     Submit a Skill
                                 </a>
                             </li>
@@ -41,7 +41,7 @@ export default function Footer() {
                         <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100 mb-4 uppercase tracking-widest">Connect</h3>
                         <ul className="space-y-3">
                             <li>
-                                <a href="https://github.com/skillwiki/catalog" target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                                <a href="https://github.com/sophgen/skillwiki" target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
                                     GitHub
                                 </a>
                             </li>

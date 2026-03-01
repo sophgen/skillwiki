@@ -7,12 +7,14 @@ on:
       - 'skills/**'
       - 'website/**'
       - 'scripts/**'
+      - '.github/workflows/**'
   pull_request:
     branches: [main]
     paths:
       - 'skills/**'
       - 'website/**'
       - 'scripts/**'
+      - '.github/workflows/**'
 
 jobs:
   build-and-deploy:
